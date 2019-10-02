@@ -19,11 +19,11 @@ if len(sys.argv) == 4:
     min_information_content = sys.argv[3]
 
     # Read in ontologies.
-    hpo_terms_parents = hpo_parsing_onto("hpo.obo.txt")
+    hpo_terms_parents = hpo_parsing_onto("hp.obo.txt")
     go_terms_parents = parsing_go("go.obo")
 
     # Read in annotations.
-    hp_gt = hpo_parsing_ann("hpo_genes_to_phenotype")
+    hp_gt = hpo_parsing_ann("hpo_genes_to_phenotype.txt")
     gene_syn, bp_gt, mf_gt, cc_gt = parsing_ann("goa_human.gaf")
 
 else:
