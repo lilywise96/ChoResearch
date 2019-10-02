@@ -62,22 +62,22 @@ def parsing_ann(filename):
 
                 if 'P' in namespace:
                     if gene not in bp_gene_terms.keys():
-                        bp_gene_terms[gene] = []
-                    bp_gene_terms[gene].append(term)
+                        bp_gene_terms[gene] = set()
+                    bp_gene_terms[gene].add(term)
                 elif 'F' in namespace:
                     if gene not in mf_gene_terms.keys():
-                        mf_gene_terms[gene] = []
-                    mf_gene_terms[gene].append(term)
+                        mf_gene_terms[gene] = set()
+                    mf_gene_terms[gene].add(term)
                 else:
                     if gene not in cc_gene_terms.keys():
-                        cc_gene_terms[gene] = []
-                    cc_gene_terms[gene].append(term)
+                        cc_gene_terms[gene] = set()
+                    cc_gene_terms[gene].add(term)
 
                 if gene not in gene_syn.keys():
-                    gene_syn[gene] = [gene]
+                    gene_syn[gene] = set(gene)
                 synonyms = synonym_col.split('|')
                 for syn in synonyms:
                     if syn not in gene_syn[gene]:
-                        gene_syn[gene].append(syn)
+                        gene_syn[gene].add(syn)
 
     return gene_syn, bp_gene_terms, mf_gene_terms, cc_gene_terms

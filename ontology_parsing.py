@@ -26,14 +26,14 @@ def hpo_parsing_onto(filename):
         elif line.startswith('is_a:'):
             cur_parent = line[6:16]
             if cur_parent not in terms_parents[cur_key]:
-                terms_parents[cur_parent] = []
-            terms_parents[cur_key].append(cur_parent)
+                terms_parents[cur_parent] = set()
+            terms_parents[cur_key].add(cur_parent)
 
         # Reads in the id number.
         elif line.startswith('id:'):
             cur_key = line[4:14]
             if cur_key not in terms_parents.keys():
-                terms_parents[cur_key] = []
+                terms_parents[cur_key] = set()
 
     return terms_parents
 
@@ -46,7 +46,7 @@ def hpo_parsing_onto(filename):
 def parsing_go(filename):
     file = open(filename, "r")
     terms_parents = {}
-    cur_parents = []
+    cur_parents = set()
     cur_key = ''
     is_obsolete = False
 
@@ -56,14 +56,14 @@ def parsing_go(filename):
         if 'Term' in line:
             if not is_obsolete:
                 terms_parents[cur_key] = cur_parents
-            cur_parents = []
+            cur_parents = set()
             cur_key = ''
             is_obsolete = False
         # Reads in the id.
         elif line.startswith('id:'):
             cur_key = line[4:14]
             if cur_key not in terms_parents.keys():
-                terms_parents[cur_key] = []
+                terms_parents[cur_key] = set()
         # Removes the id if the is_obsolete is found.
         elif 'is_obsolete' in line:
             is_obsolete = True
@@ -71,6 +71,6 @@ def parsing_go(filename):
                 terms_parents.pop(cur_key)
         # If it isn't obsolete then the parents can be added if found.
         elif line.startswith('is_a:') and not is_obsolete:
-            cur_parents.append(line[6:16])
+            cur_parents.add(line[6:16])
 
     return terms_parents
