@@ -74,3 +74,18 @@ def parsing_go(filename):
             cur_parents.add(line[6:16])
 
     return terms_parents
+
+
+def testing_ontology_parsing(filename):
+    file = open(filename, "r")
+    terms_parents = {}
+
+    for line in file:
+        cols = line.split(" ")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+        if cols[0]:
+            terms_parents[cols[0]] = set()
+        for i in range(1, len(cols)):
+            terms_parents[cols[0]].add(cols[i])
+
+    return terms_parents

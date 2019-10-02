@@ -81,3 +81,18 @@ def parsing_ann(filename):
                         gene_syn[gene].add(syn)
 
     return gene_syn, bp_gene_terms, mf_gene_terms, cc_gene_terms
+
+
+def testing_annotation_parsing(filename):
+    file = open(filename, "r")
+    genes_terms = {}
+
+    for line in file:
+        cols = line.split(" ")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+        if cols[0]:
+            genes_terms[cols[0]] = set()
+        for i in range(1, len(cols)):
+            genes_terms[cols[0]].add(cols[i])
+
+    return genes_terms
