@@ -1,4 +1,16 @@
+"""
+File: annotation_parsing.py
+Author: Lily Wise
 
+This file parses annotation files for hpo and for go.
+"""
+
+
+# This function parses the hpo annotation file. It pulls the gene annotation
+# and terms it is associated to.
+#
+# param: filename - the hpo annotation file
+# return: gene_term_id - a dictionary; key: gene, value: array of terms
 def hpo_parsing_ann(filename):
     file = open(filename, "r")
     gene_id_symbol = {}
@@ -20,6 +32,17 @@ def hpo_parsing_ann(filename):
     return gene_term_id
 
 
+# This function parses the gene annotation file. It pulls the gene annotation
+# and terms it is associated to.
+#
+# param: filename - the gene annotation file
+# return: gene_syn - a dictionary; key: a gene, value: array of synonyms
+# return: bp_gene_terms - a biological process dictionary; key: a gene,
+# value: array of terms that the gene is annotated to
+# return: mf_gene_terms - a molecular function dictionary; key: a gene,
+# value: array of terms that the gene is annotated to
+# return: cc_gene_terms - a cellular component dictionary; key: a gene,
+# value: array of terms that the gene is annotated to
 def parsing_ann(filename):
     file = open(filename, "r")
     gene_syn = {}
