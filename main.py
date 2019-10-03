@@ -143,23 +143,29 @@ if len(sys.argv) == 7:
     min_confidence = float(sys.argv[5])
     min_information_content = float(sys.argv[6])
 
+    onto_ann_filename = "gene_term.txt"
+    freq_itemsets_filename = "freq_itemsets_" + str(int(ceil(min_support*10))) +\
+                             "_" + str(int(ceil(min_confidence*10))) + ".txt"
+    associations_filename = "associations_" + str(int(ceil(min_support*10))) +\
+                            "_" + str(int(ceil(min_confidence*10))) + ".txt"
+
     if recreate_onto_ann == "true":
-        all_gt = create_onto_ann("gene_term.txt")
+        all_gt = create_onto_ann(onto_ann_filename)
     else:
-        all_gt = read_onto_ann("gene_term.txt")
+        all_gt = read_onto_ann(onto_ann_filename)
 
     if recreate_freq_itemsets == "true":
-        freq_itemsets = create_freq_itemsets("freq_itemsets.txt", all_gt)
+        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, all_gt)
     else:
-        freq_itemsets = read_freq_itemsets("freq_itemsets.txt")
+        freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
 
     if recreate_associations == "true":
-        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, "associations.txt")
+        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, associations_filename)
     else:
-        final_associations = read_associations("associations.txt")
+        final_associations = read_associations(associations_filename)
 
     print("Done")
 
 else:
-    print("Not the correct number of variables: (rewrite_onto_ann, rewrite_freq_itemsets, "
+    print("Not the correct number of variables: (rewrite_onto_ann, rewrite_freq_itemsets, rewrite_associations, "
           "min_support, min_confidence, min_information_content)")
