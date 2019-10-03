@@ -13,13 +13,8 @@ from apriori_algorithm import apriori
 from math import ceil
 import sys
 
-if len(sys.argv) == 4:
-    print("Correct number of variables.")
 
-    min_support = float(sys.argv[1])
-    min_confidence = float(sys.argv[2])
-    min_information_content = float(sys.argv[3])
-
+def create_onto_ann(gene_term_output_filename):
     # Read in ontologies. terms to parents
     hpo_terms_parents = hpo_parsing_onto("./input/hp.obo.txt")
     bp_terms_parents, mf_terms_parents, cc_terms_parents = parsing_go("./input/go.obo")
@@ -45,11 +40,47 @@ if len(sys.argv) == 4:
     # Join all term to gene and make them gene to term.
     all_gt = join_gt(hp_tg, bp_tg, mf_tg)
 
+    output_file = open(gene_term_output_filename, "w")
+    for gene in all_gt:
+        output_file.write(gene)
+        for term in all_gt[gene]:
+            output_file.write("\t")
+            output_file.write(term)
+        output_file.write("\n")
+
+    return all_gt
+
+
+def read_onto_ann(filename):
+    file = open(filename, "r")
+    gt = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        gt[cols[0]] = set()
+        for i in range(1, len(cols)):
+            gt[cols[0]].add(cols[i])
+
+    return gt
+
+
+if len(sys.argv) == 5:
+    print("Correct number of variables.")
+
+    recreate = sys.argv[1]
+    min_support = float(sys.argv[2])
+    min_confidence = float(sys.argv[3])
+    min_information_content = float(sys.argv[4])
+
+    if recreate == "true":
+        all_gt = create_onto_ann("gene_term.txt")
+    else:
+        all_gt = read_onto_ann("gene_term.txt")
+
     print("Calculating frequent itemsets.")
-    # print(set(all_gt.keys()))
-    # print(min_support)
     freq_itemsets = apriori(all_gt, set(all_gt.keys()), min_support)
     # print(freq_itemsets)
 
 else:
-    print("Not the correct number of variables: (min_support, min_confidence, min_information_content)")
+    print("Not the correct number of variables: (rewrite, min_support, min_confidence, min_information_content)")
