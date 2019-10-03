@@ -45,35 +45,55 @@ def hpo_parsing_onto(filename):
 # return: terms_parents - a dictionary; key: id, value: array of terms (parents)
 def parsing_go(filename):
     file = open(filename, "r")
-    terms_parents = {}
+    bp_terms_parents = {}
+    mf_terms_parents = {}
+    cc_terms_parents = {}
     cur_parents = set()
     cur_key = ''
     is_obsolete = False
+    namespace = ''
 
     # Start reading in file.
     for line in file:
         # Identifies that a new term is starting.
         if 'Term' in line:
             if not is_obsolete:
-                terms_parents[cur_key] = cur_parents
+                if namespace is 'b':
+                    bp_terms_parents[cur_key] = cur_parents
+                elif namespace is 'm':
+                    mf_terms_parents[cur_key] = cur_parents
+                elif namespace is 'c':
+                    cc_terms_parents[cur_key] = cur_parents
             cur_parents = set()
             cur_key = ''
             is_obsolete = False
         # Reads in the id.
         elif line.startswith('id:'):
             cur_key = line[4:14]
-            if cur_key not in terms_parents.keys():
-                terms_parents[cur_key] = set()
         # Removes the id if the is_obsolete is found.
         elif 'is_obsolete' in line:
             is_obsolete = True
             if cur_key is not '':
-                terms_parents.pop(cur_key)
+                if namespace is 'b' and cur_key in bp_terms_parents:
+                    bp_terms_parents.pop(cur_key)
+                elif namespace is 'm' and cur_key in mf_terms_parents:
+                    mf_terms_parents.pop(cur_key)
+                elif namespace is 'c' and cur_key in cc_terms_parents:
+                    cc_terms_parents.pop(cur_key)
         # If it isn't obsolete then the parents can be added if found.
         elif line.startswith('is_a:') and not is_obsolete:
             cur_parents.add(line[6:16])
+        # Checks which namespace it is in.
+        elif line.startswith('namespace:'):
+            namespace = line[11]
+            if namespace is 'b' and cur_key not in bp_terms_parents:
+                bp_terms_parents[cur_key] = set()
+            elif namespace is 'm' and cur_key not in mf_terms_parents:
+                mf_terms_parents[cur_key] = set()
+            elif namespace is 'c' and cur_key not in cc_terms_parents:
+                cc_terms_parents[cur_key] = set()
 
-    return terms_parents
+    return bp_terms_parents, mf_terms_parents, cc_terms_parents
 
 
 def testing_ontology_parsing(filename):

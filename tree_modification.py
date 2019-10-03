@@ -23,6 +23,33 @@ def swap_key_value(key_to_value):
     return value_to_key
 
 
+def join_gt(hp_tg, bp_tg, mf_tg):
+    hp_gt = swap_key_value(hp_tg)
+    bp_gt = swap_key_value(bp_tg)
+    mf_gt = swap_key_value(mf_tg)
+
+    all_gt = {}
+    for gene in hp_gt:
+        if gene not in all_gt:
+            all_gt[gene] = set()
+        for term in hp_gt[gene]:
+            all_gt[gene].add(term)
+
+    for gene in bp_gt:
+        if gene not in all_gt:
+            all_gt[gene] = set()
+        for term in bp_gt[gene]:
+            all_gt[gene].add(term)
+
+    for gene in mf_gt:
+        if gene not in all_gt:
+            all_gt[gene] = set()
+        for term in mf_gt[gene]:
+            all_gt[gene].add(term)
+
+    return all_gt
+
+
 # Find all leaf nodes and add all of the genes to their parents.
 def gene_to_all_parents(tree_child_parent, gene_to_terms):
     tree_parent_child = swap_key_value(tree_child_parent)
@@ -40,15 +67,12 @@ def gene_to_all_parents(tree_child_parent, gene_to_terms):
         if node not in set(tree_parent_child.keys()):
             leaf_nodes.add(node)
 
-    print(leaf_nodes)
-
     for node in leaf_nodes:
         for parent in tree_child_parent[node]:
             to_check.add(parent)
 
     while len(to_check) != 0:
         checking = to_check.pop()
-        print(checking)
         if checking in tree_child_parent:
             for parent in tree_child_parent[checking]:
                 to_check.add(parent)
@@ -67,7 +91,6 @@ def gene_to_all_parents(tree_child_parent, gene_to_terms):
 # return: new_gene_to_terms - updated gene_to_terms with the node that was called having all of its children's genes
 def gene_to_parent(node, tree, terms_to_genes):
     new_terms_to_genes = terms_to_genes
-    print(new_terms_to_genes)
 
     for child in tree[node]:
         if node not in new_terms_to_genes:
