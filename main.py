@@ -5,6 +5,21 @@ Author: Lily Wise
 Calls other functions to find associations between genes and terms for diseases.
 """
 
+# Notes from 10/3/2019
+# try support and coverage 4% - 10%
+# try confidence 20 - 50%
+# modify the specificity add to support and confidence
+# negative log of p (information content), for associations specificity is the first (coverage),
+# for associations specificity is the first (confidence)
+# BP -> BP and MF -> MF and HPO -> HPO and BP -> HPO and MF -> HPO
+
+# Evaluate?
+# Paper -- another ontology database (HDO) same thing and compare to HPO
+# does it cover the entire database or not, completeness of 2
+
+# Weighted association rules
+# Change threshold for weighted association rules (can use from paper)
+# Look at Disease Ontology
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
