@@ -10,6 +10,7 @@ from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_pars
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
 from tree_modification import swap_key_value, gene_to_all_parents, join_gt
 from apriori_algorithm import apriori
+from association_creation import create_associations
 from math import ceil
 import sys
 
@@ -47,7 +48,7 @@ def create_onto_ann(gene_term_output_filename):
             output_file.write("\t")
             output_file.write(term)
         output_file.write("\n")
-
+    output_file.close()
     return all_gt
 
 
@@ -61,26 +62,104 @@ def read_onto_ann(filename):
         gt[cols[0]] = set()
         for i in range(1, len(cols)):
             gt[cols[0]].add(cols[i])
-
+    file.close()
     return gt
 
 
-if len(sys.argv) == 5:
+def create_freq_itemsets(filename, all_gt):
+    all_terms = set()
+    for gene in all_gt:
+        for term in all_gt[gene]:
+            all_terms.add(term)
+
+    freq_itemsets = apriori(all_gt, all_terms, min_support)
+
+    file = open("freq_itemsets.txt", "w")
+    for itemset in freq_itemsets:
+        for item in range(0, len(itemset)):
+            if item != 0:
+                file.write("\t")
+            file.write(itemset[item])
+        file.write("\n")
+    file.close()
+
+    return freq_itemsets
+
+
+def read_freq_itemsets(filename):
+    freq_itemsets = []
+    file = open(filename, "r")
+    for line in file:
+        items = line.split("\t")
+        items[len(items) - 1] = items[len(items) - 1][0:-1]
+
+        itemset = set()
+        for item in items:
+            itemset.add(item)
+        freq_itemsets.append(itemset)
+    file.close()
+
+    return freq_itemsets
+
+
+def create_new_associations(all_gt, freq_itemsets, min_confidence, filename):
+    final_associations = create_associations(all_gt, freq_itemsets, min_confidence)
+    file = open(filename, "w")
+
+    for association in final_associations:
+        for associate in range(0, len(association)):
+            if associate != 0:
+                file.write("\t")
+            file.write(association[associate])
+        file.write("\n")
+    file.close()
+
+    return final_associations
+
+
+def read_associations(filename):
+    final_associations = []
+    file = open(filename, "r")
+    for line in file:
+        association = line.split("\t")
+        association[len(association) - 1] = association[len(association) - 1][0:-1]
+
+        final_association = set()
+        for assoc in association:
+            final_association.add(assoc)
+        final_associations.append(final_association)
+    file.close()
+
+    return final_associations
+
+
+if len(sys.argv) == 7:
     print("Correct number of variables.")
 
-    recreate = sys.argv[1]
-    min_support = float(sys.argv[2])
-    min_confidence = float(sys.argv[3])
-    min_information_content = float(sys.argv[4])
+    recreate_onto_ann = sys.argv[1]
+    recreate_freq_itemsets = sys.argv[2]
+    recreate_associations = sys.argv[3]
+    min_support = float(sys.argv[4])
+    min_confidence = float(sys.argv[5])
+    min_information_content = float(sys.argv[6])
 
-    if recreate == "true":
+    if recreate_onto_ann == "true":
         all_gt = create_onto_ann("gene_term.txt")
     else:
         all_gt = read_onto_ann("gene_term.txt")
 
-    print("Calculating frequent itemsets.")
-    freq_itemsets = apriori(all_gt, set(all_gt.keys()), min_support)
-    # print(freq_itemsets)
+    if recreate_freq_itemsets == "true":
+        freq_itemsets = create_freq_itemsets("freq_itemsets.txt", all_gt)
+    else:
+        freq_itemsets = read_freq_itemsets("freq_itemsets.txt")
+
+    if recreate_associations == "true":
+        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, "associations.txt")
+    else:
+        final_associations = read_associations("associations.txt")
+
+    print("Done")
 
 else:
-    print("Not the correct number of variables: (rewrite, min_support, min_confidence, min_information_content)")
+    print("Not the correct number of variables: (rewrite_onto_ann, rewrite_freq_itemsets, "
+          "min_support, min_confidence, min_information_content)")

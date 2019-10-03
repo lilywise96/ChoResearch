@@ -148,10 +148,12 @@ def generate_all_frequent_itemsets(transactions, items, min_support):
 
     frequent_itemsets[itemset_size] = sorted(frequent_itemsets[itemset_size])
 
+    print("Finished itemsize "+str(itemset_size))
+
     # frequent itemsets of greater size
     itemset_size += 1
 
-    while frequent_itemsets[itemset_size - 1]:
+    while frequent_itemsets[itemset_size - 1] and itemset_size <= 2:
         frequent_itemsets[itemset_size] = list()
         candidate_itemsets = generate_candidate_itemsets(frequent_itemsets, itemset_size)
         pruned_itemset = set()
@@ -162,6 +164,7 @@ def generate_all_frequent_itemsets(transactions, items, min_support):
                 pruned_itemset.add(candidate)
 
         frequent_itemsets[itemset_size] = pruned_itemset
+        print("Finished itemsize " + str(itemset_size))
         itemset_size += 1
 
     return frequent_itemsets
@@ -209,8 +212,7 @@ def output_to_file(filename, frequent_itemsets_table, transactions):
 
 def apriori(gene_terms, gene_set, min_support):
     min_support = ceil(min_support * len(gene_terms))
-    print(min_support)
-    frequent_itemset_table = {}
-    # frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support)
+    frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support)
+    print(frequent_itemset_table)
     # output_to_file(output_filename, frequent_itemset_table, gene_terms)
-    return frequent_itemset_table
+    return frequent_itemset_table[2]
