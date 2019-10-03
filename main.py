@@ -17,9 +17,14 @@ Calls other functions to find associations between genes and terms for diseases.
 # Paper -- another ontology database (HDO) same thing and compare to HPO
 # does it cover the entire database or not, completeness of 2
 
+# For next week...
 # Weighted association rules
 # Change threshold for weighted association rules (can use from paper)
 # Look at Disease Ontology
+# Information about disease ontology and human phenotype ontology
+# distinct annotations and intersection and number of terms
+
+# Deadline for October 20th!!!
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
