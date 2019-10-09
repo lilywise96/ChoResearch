@@ -2,12 +2,10 @@
 Filename: main.py
 Author: Lily Wise
 
-Calls other functions to find associations between genes and terms for diseases.
+Calls other functions to find associations between genes and terms for diseases. Should calculate associations with
+support 4% - 10%, coverage 4% - 10%, and confidence 20% - 50%.
 """
 
-# Notes from 10/3/2019
-# try support and coverage 4% - 10%
-# try confidence 20 - 50%
 # modify the specificity add to support and confidence
 # negative log of p (information content), for associations specificity is the first (coverage),
 # for associations specificity is the first (confidence)
@@ -23,7 +21,7 @@ Calls other functions to find associations between genes and terms for diseases.
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
-from tree_modification import swap_key_value, gene_to_all_parents, join_gt
+from tree_modification import swap_key_value, gene_to_all_parents, join_gt, calculate_ic
 from apriori_algorithm import apriori
 from association_creation import create_associations
 from math import ceil
@@ -48,7 +46,12 @@ def create_onto_ann(gene_term_output_filename):
     # cc_tg = gene_to_all_parents(cc_terms_parents, cc_gt)
     # testing_tg = gene_to_all_parents(testing_terms_parents, testing_gt)
 
-    # Save terms for each.
+    # Calculate Information Content
+    hp_ic = calculate_ic(hp_tg)
+    bp_ic = calculate_ic(bp_tg)
+    mf_ic = calculate_ic(mf_tg)
+
+    # Save terms for each
     hp_terms = set(hp_tg.keys())
     bp_terms = set(bp_tg.keys())
     mf_terms = set(mf_tg.keys())
@@ -117,8 +120,8 @@ def read_freq_itemsets(filename):
     return freq_itemsets
 
 
-def create_new_associations(all_gt, freq_itemsets, min_confidence, filename):
-    final_associations = create_associations(all_gt, freq_itemsets, min_confidence)
+def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage, filename):
+    final_associations = create_associations(all_gt, freq_itemsets, min_confidence, min_coverage)
     file = open(filename, "w")
 
     for association in final_associations:
@@ -177,8 +180,8 @@ if len(sys.argv) == 8:
         freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
 
     if recreate_associations == "true":
-        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, associations_filename,
-                                                     min_coverage)
+        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
+                                                     associations_filename )
     else:
         final_associations = read_associations(associations_filename)
 
