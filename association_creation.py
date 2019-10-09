@@ -2,7 +2,7 @@
 Filename: association_creation.py
 Author: Lily Wise
 
-
+This creates association and has other functions that are used to calculate the associations.
 """
 from math import ceil
 

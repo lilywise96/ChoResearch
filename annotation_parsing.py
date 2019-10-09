@@ -83,6 +83,10 @@ def parsing_ann(filename):
     return gene_syn, bp_gene_terms, mf_gene_terms, cc_gene_terms
 
 
+# This function is for testing the annotation with a modified input file.
+#
+# param: filename - the file to read in from
+# return: genes_terms - dictionary; key: gene, value: terms that the gene is annotated to
 def testing_annotation_parsing(filename):
     file = open(filename, "r")
     genes_terms = {}
