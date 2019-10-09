@@ -20,11 +20,6 @@ Calls other functions to find associations between genes and terms for diseases.
 # For next week...
 # Weighted association rules
 # Change threshold for weighted association rules (can use from paper)
-# Look at Disease Ontology
-# Information about disease ontology and human phenotype ontology
-# distinct annotations and intersection and number of terms
-
-# Deadline for October 20th!!!
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
@@ -153,7 +148,7 @@ def read_associations(filename):
     return final_associations
 
 
-if len(sys.argv) == 7:
+if len(sys.argv) == 8:
     print("Correct number of variables.")
 
     recreate_onto_ann = sys.argv[1]
@@ -162,12 +157,14 @@ if len(sys.argv) == 7:
     min_support = float(sys.argv[4])
     min_confidence = float(sys.argv[5])
     min_information_content = float(sys.argv[6])
+    min_coverage = float(sys.argv[7])
 
     onto_ann_filename = "gene_term.txt"
     freq_itemsets_filename = "freq_itemsets_" + str(int(ceil(min_support*10))) +\
                              "_" + str(int(ceil(min_confidence*10))) + ".txt"
     associations_filename = "associations_" + str(int(ceil(min_support*10))) +\
-                            "_" + str(int(ceil(min_confidence*10))) + ".txt"
+                            "_" + str(int(ceil(min_confidence*10))) +\
+                            "_" + str(int(ceil(min_coverage*10))) + ".txt"
 
     if recreate_onto_ann == "true":
         all_gt = create_onto_ann(onto_ann_filename)
@@ -180,7 +177,8 @@ if len(sys.argv) == 7:
         freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
 
     if recreate_associations == "true":
-        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, associations_filename)
+        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, associations_filename,
+                                                     min_coverage)
     else:
         final_associations = read_associations(associations_filename)
 
