@@ -5,7 +5,7 @@ Author: Lily Wise
 Calculates the frequent itemsets.
 """
 
-from math import ceil
+from math import ceil, log10
 from itertools import combinations, permutations
 
 
@@ -35,7 +35,10 @@ def weighted_support(transactions, itemset, all_spec):
             support_count += 1
 
     support_weight = 2 * all_spec[itemset[0]] * all_spec[itemset[1]] * support_count
-    support_weight /= all_spec[itemset[0]] + all_spec[itemset[1]]
+    if (all_spec[itemset[0]] + all_spec[itemset[1]]) != 0:
+        support_weight /= (all_spec[itemset[0]] + all_spec[itemset[1]])
+    else:
+        support_weight = 0
 
     return support_weight
 
@@ -159,7 +162,12 @@ def generate_candidate_itemsets(frequent_itemsets, itemset_size):
 # param items: The unique set of items present in the transaction
 # param min_support: The minimum support to find frequent itemsets
 # return: The table of all frequent itemsets of different sizes
-def generate_all_frequent_itemsets(transactions, items, min_support, min_information_content, all_spec, all_ic):
+def generate_all_frequent_itemsets(transactions, items, min_support, min_weighted_support,
+                                   min_information_content, all_spec, all_ic):
+
+    min_support = ceil(min_support * len(transactions))
+    min_weighted_support = min_weighted_support / ceil(min_weighted_support * len(transactions))
+    min_information_content = min_information_content * -log10(1/len(items))
 
     frequent_itemsets = dict()
     itemset_size = 0
@@ -191,7 +199,8 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_informa
 
         # Prune the candidate itemset if its support is less than minimum support
         for candidate in candidate_itemsets:
-            if support(transactions, candidate) >= min_support and weighted_support(transactions, candidate, all_spec):
+            weighted_sup = weighted_support(transactions, candidate, all_spec)
+            if weighted_sup >= min_weighted_support:
                 pruned_itemset.add(candidate)
 
         frequent_itemsets[itemset_size] = pruned_itemset
@@ -247,9 +256,9 @@ def output_to_file(filename, frequent_itemsets_table, transactions):
 # param: gene_set - the set of all distinct genes
 # param: min_support - the minimum support
 # return: frequent_itemset_table[2] - the frequent itemsets of size 2
-def apriori(gene_terms, gene_set, min_support, min_information_content, all_spec, all_ic):
-    min_support = ceil(min_support * len(gene_terms))
-    frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support,
+def apriori(gene_terms, gene_set, min_support, min_weighted_support, min_information_content, all_spec, all_ic):
+    frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support, min_weighted_support,
                                                             min_information_content, all_spec, all_ic)
     # output_to_file(output_filename, frequent_itemset_table, gene_terms)
+    print(frequent_itemset_table)
     return frequent_itemset_table[2]

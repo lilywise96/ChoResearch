@@ -6,18 +6,7 @@ Calls other functions to find associations between genes and terms for diseases.
 support 4% - 10%, coverage 4% - 10%, and confidence 20% - 50%.
 """
 
-# modify the specificity add to support and confidence
-# negative log of p (information content), for associations specificity is the first (coverage),
-# for associations specificity is the first (confidence)
 # BP -> BP and MF -> MF and HPO -> HPO and BP -> HPO and MF -> HPO
-
-# Evaluate?
-# Paper -- another ontology database (HDO) same thing and compare to HPO
-# does it cover the entire database or not, completeness of 2
-
-# For next week...
-# Weighted association rules
-# Change threshold for weighted association rules (can use from paper)
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
@@ -255,13 +244,15 @@ def read_onto_ann():
 
 
 # Create frequent itemsets.
-def create_freq_itemsets(filename, all_gt, min_support, min_information_content, all_spec, all_ic):
+def create_freq_itemsets(filename, all_gt, min_support, min_weighted_support,
+                         min_information_content, all_spec, all_ic):
     all_terms = set()
     for gene in all_gt:
         for term in all_gt[gene]:
             all_terms.add(term)
 
-    freq_itemsets = apriori(all_gt, all_terms, min_support, min_information_content, all_spec, all_ic)
+    freq_itemsets = apriori(all_gt, all_terms, min_support, min_weighted_support,
+                            min_information_content, all_spec, all_ic)
 
     file = open(filename, "w")
     for itemset in freq_itemsets:
@@ -323,16 +314,23 @@ def read_associations(filename):
     return final_associations
 
 
-if len(sys.argv) == 8:
+if len(sys.argv) == 9:
     print("Correct number of variables.")
 
     recreate_onto_ann = sys.argv[1]
     recreate_freq_itemsets = sys.argv[2]
     recreate_associations = sys.argv[3]
     min_support = float(sys.argv[4])
-    min_confidence = float(sys.argv[5])
-    min_information_content = float(sys.argv[6])
-    min_coverage = float(sys.argv[7])
+    min_weighted_support = float(sys.argv[5])
+    min_confidence = float(sys.argv[6])
+    min_information_content = float(sys.argv[7])
+    min_coverage = float(sys.argv[8])
+
+    print("Min_Support: "+str(min_support))
+    print("Min_Weighted_Support: "+str(min_weighted_support))
+    print("Min_Confidence: "+str(min_confidence))
+    print("Min_Info_Content: "+str(min_information_content))
+    print("Min_Coverage: "+str(min_coverage))
 
     freq_itemsets_filename += str(int(ceil(min_support*10))) + "_" + str(int(ceil(min_confidence*10))) + ".txt"
     associations_filename += str(int(ceil(min_support*10))) + "_" + str(int(ceil(min_confidence*10))) + \
@@ -344,10 +342,13 @@ if len(sys.argv) == 8:
         all_gt, all_spec, all_ic = read_onto_ann()
 
     if recreate_freq_itemsets == "true":
-        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, all_gt, min_support,
+        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, all_gt, min_support, min_weighted_support,
                                              min_information_content, all_spec, all_ic)
     else:
         freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
+
+    min_coverage_count = ceil(min_coverage * len(freq_itemsets))
+    min_confidence_count = ceil(min_confidence * len(freq_itemsets))
 
     if recreate_associations == "true":
         final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
@@ -359,4 +360,4 @@ if len(sys.argv) == 8:
 
 else:
     print("Not the correct number of variables: (rewrite_onto_ann, rewrite_freq_itemsets, rewrite_associations, "
-          "min_support, min_confidence, min_information_content)")
+          "min_support, min_weighted_support, min_confidence, min_information_content, min_coverage)")

@@ -71,11 +71,12 @@ def confidence(all_gt, association, all_spec):
 def create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all_spec):
     final_associations = []
     associations = all_associations(freq_itemsets)
-    min_confidence = ceil(min_confidence * len(freq_itemsets))
 
     for associate in associations:
         cur_confidence = confidence(all_gt, associate, all_spec)
         cur_coverage = coverage(associate[0], all_gt, all_spec)
+        print("Confidence check: "+str(cur_confidence))
+        print("Coverage check: " + str(cur_coverage))
         if cur_confidence > min_confidence and cur_coverage > min_coverage:
             final_associations.append(associate)
 
@@ -85,7 +86,6 @@ def create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all
 # Creates all possible associations with the frequent itemsets.
 #
 # param: freq_itemsets - the list of frequent itemsets created by the apriori algorithm
-#
 # returns: the associations created.
 def all_associations(freq_itemsets):
     associations = []

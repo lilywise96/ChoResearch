@@ -145,14 +145,15 @@ def gene_to_parent(node, tree, terms_to_genes):
 # returns: dictionary; key: term, value: set of transitive parents
 def terms_to_all_parents(tree_child_parent):
     new_tree_child_parent = tree_child_parent
+    tree_parent_child = swap_key_value(new_tree_child_parent)
 
     # Find the root
     root = ''
     for node in new_tree_child_parent:
-        if len(new_tree_child_parent[node]) == 0:
+        if len(new_tree_child_parent[node]) == 0 and node in tree_parent_child:
             root = node
 
-    tree_parent_child = swap_key_value(new_tree_child_parent)
+    print("Root: "+root)
 
     # Check each of the nodes starting at the root and moving down through the tree.
     to_check = []
@@ -163,8 +164,9 @@ def terms_to_all_parents(tree_child_parent):
         cur_check = to_check.pop()
         add_parents(cur_check, new_tree_child_parent)
 
-        for child in tree_parent_child[cur_check]:
-            cur_check.append(child)
+        if cur_check in tree_parent_child:
+            for child in tree_parent_child[cur_check]:
+                to_check.append(child)
 
     return new_tree_child_parent
 
@@ -175,7 +177,7 @@ def terms_to_all_parents(tree_child_parent):
 # param: tree - a dictionary; key: term, value: set of parent terms (is modified in this function)
 def add_parents(node, tree_child_parent):
     for parents in tree_child_parent[node]:
-        tree_child_parent[node].union(tree_child_parent[parents])
+        tree_child_parent[node] = tree_child_parent[node].union(tree_child_parent[parents])
 
 
 # Calculates information content of every term of the tree
@@ -188,10 +190,12 @@ def calculate_ic(tree):
 
     for term in tree:
         term_ic[term] = len(tree[term])
-        distinct_genes.add(tree[term])
+
+        distinct_genes = distinct_genes.union(tree[term])
 
     for term in term_ic:
         term_ic[term] /= len(distinct_genes)
-        term_ic[term] = -log10(term_ic[term])
+        if term_ic[term] != 0:
+            term_ic[term] = -log10(term_ic[term])
 
     return term_ic
