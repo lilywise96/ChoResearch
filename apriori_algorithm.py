@@ -210,6 +210,12 @@ def output_to_file(filename, frequent_itemsets_table, transactions):
     file.close()
 
 
+# Calls other methods. The main apriori algorithm.
+#
+# param: gene_terms - dictionary; key: gene, value: set of terms
+# param: gene_set - the set of all distinct genes
+# param: min_support - the minimum support
+# return: frequent_itemset_table[2] - the frequent itemsets of size 2
 def apriori(gene_terms, gene_set, min_support):
     min_support = ceil(min_support * len(gene_terms))
     frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support)
