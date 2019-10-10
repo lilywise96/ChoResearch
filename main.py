@@ -21,30 +21,73 @@ support 4% - 10%, coverage 4% - 10%, and confidence 20% - 50%.
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
-from tree_modification import swap_key_value, gene_to_all_parents, join_gt, calculate_ic
+from tree_modification import gene_to_all_parents, join_gt, calculate_ic, terms_to_all_parents, all_specificity
 from apriori_algorithm import apriori
 from association_creation import create_associations
 from math import ceil
 import sys
 
+# Directories
+input_direct = "./input/"
+created_direct = "./created/"
 
-def create_onto_ann(gene_term_output_filename):
+# File names
+# Specificity Storage
+hp_spec_filename = created_direct + "hp_spec.txt"
+bp_spec_filename = created_direct + "bp_spec.txt"
+mf_spec_filename = created_direct + "mf_spec.txt"
+
+# Information Content Storage
+hp_ic_filename = created_direct + "hp_ic.txt"
+bp_ic_filename = created_direct + "bp_ic.txt"
+mf_ic_filename = created_direct + "mf_ic.txt"
+
+# Transitivity of Terms Storage
+hp_trans_filename = created_direct + "hp_trans.txt"
+bp_trans_filename = created_direct + "bp_trans.txt"
+mf_trans_filename = created_direct + "mf_trans.txt"
+
+# Gene to Terms All
+gene_term_filename = created_direct + "gene_term.txt"
+
+# Ontology Given
+hp_ontology_filename = input_direct + "hp.obo.txt"
+g_ontology_filename = input_direct + "go.obo"
+
+# Annotation Given
+hp_annotations_filename = input_direct + "hpo_genes_to_phenotype.txt"
+g_annotations_filename = input_direct + "goa_human.gaf"
+
+# Modified with Program Parameters
+# Frequent Itemsets
+freq_itemsets_filename = created_direct + "freq_itemsets"
+
+# Associations
+associations_filename = created_direct + "associations"
+
+
+# Creates ontology and writes it to an output file, as well as calculates information content.
+#
+# param: gene_term_output_filename - the file the ontology is written to
+# return: all_gt - dictionary; key: gene, value: set of terms
+def create_onto_ann():
     # Read in ontologies. terms to parents
-    hpo_terms_parents = hpo_parsing_onto("./input/hp.obo.txt")
-    bp_terms_parents, mf_terms_parents, cc_terms_parents = parsing_go("./input/go.obo")
-    # testing_terms_parents = testing_ontology_parsing("./input/testing_ontology")
+    hpo_terms_parents = hpo_parsing_onto(hp_ontology_filename)
+    bp_terms_parents, mf_terms_parents, cc_terms_parents = parsing_go(g_ontology_filename)
 
     # Read in annotations.
-    hp_gt = hpo_parsing_ann("./input/hpo_genes_to_phenotype.txt")
-    gene_syn, bp_gt, mf_gt, cc_gt = parsing_ann("./input/goa_human.gaf")
-    # testing_gt = testing_annotation_parsing("./input/testing_annotation")
+    hp_gt = hpo_parsing_ann(hp_annotations_filename)
+    gene_syn, bp_gt, mf_gt, cc_gt = parsing_ann(g_annotations_filename)
+
+    # Creates transitive trees
+    hpo_terms_parents_trans = terms_to_all_parents(hpo_terms_parents)
+    bp_terms_parents_trans = terms_to_all_parents(bp_terms_parents)
+    mf_terms_parents_trans = terms_to_all_parents(mf_terms_parents)
 
     # Recursively add genes to parents.
     hp_tg = gene_to_all_parents(hpo_terms_parents, hp_gt)
     bp_tg = gene_to_all_parents(bp_terms_parents, bp_gt)
     mf_tg = gene_to_all_parents(mf_terms_parents, mf_gt)
-    # cc_tg = gene_to_all_parents(cc_terms_parents, cc_gt)
-    # testing_tg = gene_to_all_parents(testing_terms_parents, testing_gt)
 
     # Calculate Information Content
     hp_ic = calculate_ic(hp_tg)
@@ -56,10 +99,15 @@ def create_onto_ann(gene_term_output_filename):
     bp_terms = set(bp_tg.keys())
     mf_terms = set(mf_tg.keys())
 
+    # Specificity of all nodes
+    hp_spec = all_specificity(hpo_terms_parents_trans, hp_ic)
+    bp_spec = all_specificity(bp_terms_parents_trans, bp_ic)
+    mf_spec = all_specificity(mf_terms_parents_trans, mf_ic)
+
     # Join all term to gene and make them gene to term.
     all_gt = join_gt(hp_tg, bp_tg, mf_tg)
 
-    output_file = open(gene_term_output_filename, "w")
+    output_file = open(gene_term_filename, "w")
     for gene in all_gt:
         output_file.write(gene)
         for term in all_gt[gene]:
@@ -67,11 +115,60 @@ def create_onto_ann(gene_term_output_filename):
             output_file.write(term)
         output_file.write("\n")
     output_file.close()
-    return all_gt
+
+    # Write specificity to files.
+    output_file = open(hp_spec_filename, "w")
+    for term in hp_spec:
+        output_file.write(term+"\t"+str(hp_spec[term])+"\n")
+    output_file.close()
+
+    output_file = open(bp_spec_filename, "w")
+    for term in bp_spec:
+        output_file.write(term+"\t"+str(bp_spec[term])+"\n")
+    output_file.close()
+
+    output_file = open(mf_spec_filename, "w")
+    for term in mf_spec:
+        output_file.write(term+"\t"+str(mf_spec[term])+"\n")
+    output_file.close()
+
+    # Write information content to files.
+    output_file = open(hp_ic_filename, "w")
+    for term in hp_ic:
+        output_file.write(term + "\t" + str(hp_ic[term]) + "\n")
+    output_file.close()
+
+    output_file = open(bp_ic_filename, "w")
+    for term in bp_ic:
+        output_file.write(term + "\t" + str(bp_ic[term]) + "\n")
+    output_file.close()
+
+    output_file = open(mf_ic_filename, "w")
+    for term in mf_ic:
+        output_file.write(term + "\t" + str(mf_ic[term]) + "\n")
+    output_file.close()
+
+    all_ic = {}
+    for term in hp_ic:
+        all_ic[term] = hp_ic[term]
+    for term in bp_ic:
+        all_ic[term] = bp_ic[term]
+    for term in mf_ic:
+        all_ic[term] = mf_ic[term]
+
+    all_spec = {}
+    for term in hp_spec:
+        all_spec[term] = hp_spec[term]
+    for term in bp_spec:
+        all_spec[term] = bp_spec[term]
+    for term in mf_spec:
+        all_spec[term] = mf_spec[term]
+
+    return all_gt, all_spec, all_ic
 
 
-def read_onto_ann(filename):
-    file = open(filename, "r")
+def read_onto_ann():
+    file = open(gene_term_filename, "r")
     gt = {}
     for line in file:
         cols = line.split("\t")
@@ -81,18 +178,92 @@ def read_onto_ann(filename):
         for i in range(1, len(cols)):
             gt[cols[0]].add(cols[i])
     file.close()
-    return gt
+
+    # Read Specificity Files
+    file = open(hp_spec_filename, "r")
+    hp_spec = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        hp_spec[cols[0]] = float(cols[1])
+    file.close()
+
+    file = open(bp_spec_filename, "r")
+    bp_spec = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        bp_spec[cols[0]] = float(cols[1])
+    file.close()
+
+    file = open(mf_spec_filename, "r")
+    mf_spec = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        mf_spec[cols[0]] = float(cols[1])
+    file.close()
+
+    # Read Information Content Files
+    file = open(hp_ic_filename, "r")
+    hp_ic = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        hp_ic[cols[0]] = float(cols[1])
+    file.close()
+
+    file = open(bp_ic_filename, "r")
+    bp_ic = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        bp_ic[cols[0]] = float(cols[1])
+    file.close()
+
+    file = open(mf_ic_filename, "r")
+    mf_ic = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        mf_ic[cols[0]] = float(cols[1])
+    file.close()
+
+    all_ic = {}
+    for term in hp_ic:
+        all_ic[term] = hp_ic[term]
+    for term in bp_ic:
+        all_ic[term] = bp_ic[term]
+    for term in mf_ic:
+        all_ic[term] = mf_ic[term]
+
+    all_spec = {}
+    for term in hp_spec:
+        all_spec[term] = hp_spec[term]
+    for term in bp_spec:
+        all_spec[term] = bp_spec[term]
+    for term in mf_spec:
+        all_spec[term] = mf_spec[term]
+
+    return all_gt, all_spec, all_ic
 
 
-def create_freq_itemsets(filename, all_gt):
+# Create frequent itemsets.
+def create_freq_itemsets(filename, all_gt, min_support, min_information_content, all_spec, all_ic):
     all_terms = set()
     for gene in all_gt:
         for term in all_gt[gene]:
             all_terms.add(term)
 
-    freq_itemsets = apriori(all_gt, all_terms, min_support)
+    freq_itemsets = apriori(all_gt, all_terms, min_support, min_information_content, all_spec, all_ic)
 
-    file = open("freq_itemsets.txt", "w")
+    file = open(filename, "w")
     for itemset in freq_itemsets:
         for item in range(0, len(itemset)):
             if item != 0:
@@ -104,6 +275,7 @@ def create_freq_itemsets(filename, all_gt):
     return freq_itemsets
 
 
+# Read frequent itemsets.
 def read_freq_itemsets(filename):
     freq_itemsets = []
     file = open(filename, "r")
@@ -162,26 +334,26 @@ if len(sys.argv) == 8:
     min_information_content = float(sys.argv[6])
     min_coverage = float(sys.argv[7])
 
-    onto_ann_filename = "gene_term.txt"
-    freq_itemsets_filename = "freq_itemsets_" + str(int(ceil(min_support*10))) +\
+    freq_itemsets_filename += str(int(ceil(min_support*10))) +\
                              "_" + str(int(ceil(min_confidence*10))) + ".txt"
-    associations_filename = "associations_" + str(int(ceil(min_support*10))) +\
+    associations_filename += str(int(ceil(min_support*10))) +\
                             "_" + str(int(ceil(min_confidence*10))) +\
                             "_" + str(int(ceil(min_coverage*10))) + ".txt"
 
     if recreate_onto_ann == "true":
-        all_gt = create_onto_ann(onto_ann_filename)
+        all_gt, all_spec, all_ic = create_onto_ann()
     else:
-        all_gt = read_onto_ann(onto_ann_filename)
+        all_gt, all_spec, all_ic = read_onto_ann()
 
     if recreate_freq_itemsets == "true":
-        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, all_gt)
+        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, all_gt, min_support,
+                                             min_information_content, all_spec, all_ic)
     else:
         freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
 
     if recreate_associations == "true":
         final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
-                                                     associations_filename )
+                                                     associations_filename)
     else:
         final_associations = read_associations(associations_filename)
 

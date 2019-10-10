@@ -8,6 +8,30 @@ All functions that modify or determine information about the annotation or ontol
 from math import log10
 
 
+# Calculates the specificity of every node in the tree using the information content.
+#
+# param: tree - dictionary; key: term, value: all parents (transitively)
+# param: tree_ic - dictionary; key: term, value: information content of that term (-log(P))
+# returns: term_spec - dictionary, key: term, value: specificity
+#  (sum of info content of ancestors divided by the number of tree terms)
+def all_specificity(tree, tree_ic):
+    term_spec = {}
+    all_nodes = set()
+
+    for node in tree:
+        term_spec[node] = 0
+        all_nodes.add(node)
+        for parent in tree[node]:
+            if parent in tree_ic:
+                term_spec[node] += tree_ic[parent]
+            all_nodes.add(parent)
+
+    for term in term_spec:
+        term_spec[term] /= len(all_nodes)
+
+    return term_spec
+
+
 # Swaps a dictionary that has a key and a value where the value is a list
 # or a set.
 #
@@ -113,6 +137,45 @@ def gene_to_parent(node, tree, terms_to_genes):
                 new_terms_to_genes[node].add(c)
 
     return new_terms_to_genes
+
+
+# Find root node and move down through the tree until all terms transitively know their parents.
+#
+# param: tree_child_parent - dictionary; key: term, value: set of parents
+# returns: dictionary; key: term, value: set of transitive parents
+def terms_to_all_parents(tree_child_parent):
+    new_tree_child_parent = tree_child_parent
+
+    # Find the root
+    root = ''
+    for node in new_tree_child_parent:
+        if len(new_tree_child_parent[node]) == 0:
+            root = node
+
+    tree_parent_child = swap_key_value(new_tree_child_parent)
+
+    # Check each of the nodes starting at the root and moving down through the tree.
+    to_check = []
+    for child in tree_parent_child[root]:
+        to_check.append(child)
+
+    while len(to_check) != 0:
+        cur_check = to_check.pop()
+        add_parents(cur_check, new_tree_child_parent)
+
+        for child in tree_parent_child[cur_check]:
+            cur_check.append(child)
+
+    return new_tree_child_parent
+
+
+# Adds all parents transitively to the current node.
+#
+# param: node - the current node in the tree
+# param: tree - a dictionary; key: term, value: set of parent terms (is modified in this function)
+def add_parents(node, tree_child_parent):
+    for parents in tree_child_parent[node]:
+        tree_child_parent[node].union(tree_child_parent[parents])
 
 
 # Calculates information content of every term of the tree
