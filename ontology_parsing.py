@@ -96,6 +96,10 @@ def parsing_go(filename):
     return bp_terms_parents, mf_terms_parents, cc_terms_parents
 
 
+# Testing of ontology parsing with modified file.
+#
+# param: filename - the file to parse the ontology from
+# return: terms_parents - dictionary; key: term, value: set of parents
 def testing_ontology_parsing(filename):
     file = open(filename, "r")
     terms_parents = {}
