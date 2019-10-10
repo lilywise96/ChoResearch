@@ -292,8 +292,8 @@ def read_freq_itemsets(filename):
     return freq_itemsets
 
 
-def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage, filename):
-    final_associations = create_associations(all_gt, freq_itemsets, min_confidence, min_coverage)
+def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage, filename, all_spec):
+    final_associations = create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all_spec)
     file = open(filename, "w")
 
     for association in final_associations:
@@ -334,11 +334,9 @@ if len(sys.argv) == 8:
     min_information_content = float(sys.argv[6])
     min_coverage = float(sys.argv[7])
 
-    freq_itemsets_filename += str(int(ceil(min_support*10))) +\
-                             "_" + str(int(ceil(min_confidence*10))) + ".txt"
-    associations_filename += str(int(ceil(min_support*10))) +\
-                            "_" + str(int(ceil(min_confidence*10))) +\
-                            "_" + str(int(ceil(min_coverage*10))) + ".txt"
+    freq_itemsets_filename += str(int(ceil(min_support*10))) + "_" + str(int(ceil(min_confidence*10))) + ".txt"
+    associations_filename += str(int(ceil(min_support*10))) + "_" + str(int(ceil(min_confidence*10))) + \
+                             "_" + str(int(ceil(min_coverage*10))) + ".txt"
 
     if recreate_onto_ann == "true":
         all_gt, all_spec, all_ic = create_onto_ann()
@@ -353,7 +351,7 @@ if len(sys.argv) == 8:
 
     if recreate_associations == "true":
         final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
-                                                     associations_filename)
+                                                     associations_filename, all_spec)
     else:
         final_associations = read_associations(associations_filename)
 

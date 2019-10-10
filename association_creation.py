@@ -12,7 +12,7 @@ from math import ceil
 # param: left_val - the left value of an association
 # param: all_itemsets - all of the itemsets given
 # return: the number of times the left_val appears in all the itemsets divided by the total number of itemsets
-def coverage(left_val, all_itemsets):
+def coverage(left_val, all_itemsets, all_spec):
     count = 0
 
     # Loop through all the itemsets and check if the left_val is in the itemset
@@ -20,7 +20,10 @@ def coverage(left_val, all_itemsets):
         if left_val in itemset:
             count += 1
 
-    return float(count/len(all_itemsets))
+    cover = float(count/len(all_itemsets))
+    cover *= all_spec[left_val]
+
+    return cover
 
 
 # This functions calculates the confidence of a given association.
@@ -29,7 +32,7 @@ def coverage(left_val, all_itemsets):
 # param: association - the current association to calculate confidence for
 #
 # returns: the confidence count as a decimal
-def confidence(all_gt, association):
+def confidence(all_gt, association, all_spec):
     confidence_count = 0
 
     # Calculate confidence of an association by iterating over the frequent itemsets
@@ -49,7 +52,10 @@ def confidence(all_gt, association):
         if found_big:
             confidence_count += 1
 
-    return float(confidence_count / len(all_gt))
+    conf = float(confidence_count / len(all_gt))
+    conf *= all_spec[association[1]]
+
+    return conf
 
 
 # This function takes the frequent itemsets that were created by the apriori algorithm and creates associations. An
@@ -62,14 +68,14 @@ def confidence(all_gt, association):
 # param: min_coverage - the minimum coverage, as a decimal
 #
 # returns: the list of final associations that meets the requirements
-def create_associations(all_gt, freq_itemsets, min_confidence, min_coverage):
+def create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all_spec):
     final_associations = []
     associations = all_associations(freq_itemsets)
     min_confidence = ceil(min_confidence * len(freq_itemsets))
 
     for associate in associations:
-        cur_confidence = confidence(all_gt, associate)
-        cur_coverage = coverage(associate[0], all_gt)
+        cur_confidence = confidence(all_gt, associate, all_spec)
+        cur_coverage = coverage(associate[0], all_gt, all_spec)
         if cur_confidence > min_confidence and cur_coverage > min_coverage:
             final_associations.append(associate)
 
