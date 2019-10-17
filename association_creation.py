@@ -17,11 +17,10 @@ def coverage(left_val, all_itemsets, all_spec):
 
     # Loop through all the itemsets and check if the left_val is in the itemset
     for itemset in all_itemsets:
-        if left_val in itemset:
+        if left_val in all_itemsets[itemset]:
             count += 1
 
-    cover = float(count/len(all_itemsets))
-    cover *= all_spec[left_val]
+    cover = count * all_spec[left_val] * 10
 
     return cover
 
@@ -52,8 +51,7 @@ def confidence(all_gt, association, all_spec):
         if found_big:
             confidence_count += 1
 
-    conf = float(confidence_count / len(all_gt))
-    conf *= all_spec[association[1]]
+    conf = confidence_count * all_spec[association[1]] * 100
 
     return conf
 
@@ -75,9 +73,7 @@ def create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all
     for associate in associations:
         cur_confidence = confidence(all_gt, associate, all_spec)
         cur_coverage = coverage(associate[0], all_gt, all_spec)
-        print("Confidence check: "+str(cur_confidence))
-        print("Coverage check: " + str(cur_coverage))
-        if cur_confidence > min_confidence and cur_coverage > min_coverage:
+        if cur_confidence >= min_confidence and cur_coverage >= min_coverage:
             final_associations.append(associate)
 
     return final_associations

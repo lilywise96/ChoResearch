@@ -260,5 +260,4 @@ def apriori(gene_terms, gene_set, min_support, min_weighted_support, min_informa
     frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support, min_weighted_support,
                                                             min_information_content, all_spec, all_ic)
     # output_to_file(output_filename, frequent_itemset_table, gene_terms)
-    print(frequent_itemset_table)
     return frequent_itemset_table[2]

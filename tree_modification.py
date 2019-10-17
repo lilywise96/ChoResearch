@@ -153,8 +153,6 @@ def terms_to_all_parents(tree_child_parent):
         if len(new_tree_child_parent[node]) == 0 and node in tree_parent_child:
             root = node
 
-    print("Root: "+root)
-
     # Check each of the nodes starting at the root and moving down through the tree.
     to_check = []
     for child in tree_parent_child[root]:

@@ -49,10 +49,10 @@ g_annotations_filename = input_direct + "goa_human.gaf"
 
 # Modified with Program Parameters
 # Frequent Itemsets
-freq_itemsets_filename = created_direct + "freq_itemsets"
+freq_itemsets_filename = created_direct + "freq_itemsets_1.txt"
 
 # Associations
-associations_filename = created_direct + "associations"
+associations_filename = created_direct + "associations_1.txt"
 
 
 # Creates ontology and writes it to an output file, as well as calculates information content.
@@ -255,6 +255,9 @@ def create_freq_itemsets(filename, all_gt, min_support, min_weighted_support,
                             min_information_content, all_spec, all_ic)
 
     file = open(filename, "w")
+    file.write("Min Support - "+str(min_support)+"\n")
+    file.write("Min Information Content - " + str(min_information_content) + "\n")
+    file.write("Min Weighted Support - " + str(min_weighted_support) + "\n")
     for itemset in freq_itemsets:
         for item in range(0, len(itemset)):
             if item != 0:
@@ -270,14 +273,18 @@ def create_freq_itemsets(filename, all_gt, min_support, min_weighted_support,
 def read_freq_itemsets(filename):
     freq_itemsets = []
     file = open(filename, "r")
+    count = 3
     for line in file:
-        items = line.split("\t")
-        items[len(items) - 1] = items[len(items) - 1][0:-1]
+        if count > 0:
+            count -= 1
+        else:
+            items = line.split("\t")
+            items[len(items) - 1] = items[len(items) - 1][0:-1]
 
-        itemset = set()
-        for item in items:
-            itemset.add(item)
-        freq_itemsets.append(itemset)
+            itemset = set()
+            for item in items:
+                itemset.add(item)
+            freq_itemsets.append(itemset)
     file.close()
 
     return freq_itemsets
@@ -286,6 +293,9 @@ def read_freq_itemsets(filename):
 def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage, filename, all_spec):
     final_associations = create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all_spec)
     file = open(filename, "w")
+
+    file.write("Min Coverage - " + str(min_coverage) + "\n")
+    file.write("Min Confidence - " + str(min_confidence) + "\n")
 
     for association in final_associations:
         for associate in range(0, len(association)):
@@ -301,14 +311,19 @@ def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
 def read_associations(filename):
     final_associations = []
     file = open(filename, "r")
-    for line in file:
-        association = line.split("\t")
-        association[len(association) - 1] = association[len(association) - 1][0:-1]
 
-        final_association = set()
-        for assoc in association:
-            final_association.add(assoc)
-        final_associations.append(final_association)
+    count = 2
+    for line in file:
+        if count > 0:
+            count -= 1
+        else:
+            association = line.split("\t")
+            association[len(association) - 1] = association[len(association) - 1][0:-1]
+
+            final_association = set()
+            for assoc in association:
+                final_association.add(assoc)
+            final_associations.append(final_association)
     file.close()
 
     return final_associations
@@ -332,9 +347,9 @@ if len(sys.argv) == 9:
     print("Min_Info_Content: "+str(min_information_content))
     print("Min_Coverage: "+str(min_coverage))
 
-    freq_itemsets_filename += str(int(ceil(min_support*10))) + "_" + str(int(ceil(min_confidence*10))) + ".txt"
-    associations_filename += str(int(ceil(min_support*10))) + "_" + str(int(ceil(min_confidence*10))) + \
-                             "_" + str(int(ceil(min_coverage*10))) + ".txt"
+    # freq_itemsets_filename += str(ceil(min_support*100)) + "_" + str(ceil(min_weighted_support*100)) + "_" + \
+    #                           str(ceil(min_information_content*100)) + ".txt"
+    # associations_filename += str(ceil(min_confidence*100)) + "_" + str(ceil(min_coverage*100)) + ".txt"
 
     if recreate_onto_ann == "true":
         all_gt, all_spec, all_ic = create_onto_ann()
