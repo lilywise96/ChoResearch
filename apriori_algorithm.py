@@ -179,7 +179,11 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
     frequent_itemsets[itemset_size] = list()
 
     # Find all frequent itemsets of size-1 and add them to the list
+    print(len(items))
+    count = 0
     for i in items:
+        print(str(count))
+        count += 1
         list_ver = [i]
         support_check = support(transactions, list_ver)
         if support_check >= min_support and all_ic[i] >= min_information_content:

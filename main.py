@@ -7,6 +7,7 @@ support 4% - 10%, coverage 4% - 10%, and confidence 20% - 50%.
 """
 
 # BP -> BP and MF -> MF and HPO -> HPO and BP -> HPO and MF -> HPO
+# Accuracy Measuring?
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
@@ -49,10 +50,10 @@ g_annotations_filename = input_direct + "goa_human.gaf"
 
 # Modified with Program Parameters
 # Frequent Itemsets
-freq_itemsets_filename = created_direct + "freq_itemsets_1.txt"
+freq_itemsets_filename = created_direct + "freq_itemsets_2.txt"
 
 # Associations
-associations_filename = created_direct + "associations_1.txt"
+associations_filename = created_direct + "associations_10.txt"
 
 
 # Creates ontology and writes it to an output file, as well as calculates information content.
@@ -240,7 +241,7 @@ def read_onto_ann():
     for term in mf_spec:
         all_spec[term] = mf_spec[term]
 
-    return all_gt, all_spec, all_ic
+    return gt, all_spec, all_ic
 
 
 # Create frequent itemsets.
