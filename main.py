@@ -11,7 +11,8 @@ support 4% - 10%, coverage 4% - 10%, and confidence 20% - 50%.
 
 from ontology_parsing import hpo_parsing_onto, parsing_go, testing_ontology_parsing
 from annotation_parsing import hpo_parsing_ann, parsing_ann, testing_annotation_parsing
-from tree_modification import gene_to_all_parents, join_gt, calculate_ic, terms_to_all_parents, all_specificity
+from tree_modification import gene_to_all_parents, join_gt, calculate_ic, terms_to_all_parents, \
+    all_specificity, swap_key_value, join_two
 from apriori_algorithm import apriori
 from association_creation import create_associations
 from math import ceil
@@ -39,6 +40,9 @@ mf_trans_filename = created_direct + "mf_trans.txt"
 
 # Gene to Terms All
 gene_term_filename = created_direct + "gene_term.txt"
+gene_term_bp_filename = created_direct + "gene_term_bp.txt"
+gene_term_mf_filename = created_direct + "gene_term_mf.txt"
+gene_term_hp_filename = created_direct + "gene_term_hp.txt"
 
 # Ontology Given
 hp_ontology_filename = input_direct + "hp.obo.txt"
@@ -47,13 +51,6 @@ g_ontology_filename = input_direct + "go.obo"
 # Annotation Given
 hp_annotations_filename = input_direct + "hpo_genes_to_phenotype.txt"
 g_annotations_filename = input_direct + "goa_human.gaf"
-
-# Modified with Program Parameters
-# Frequent Itemsets
-freq_itemsets_filename = created_direct + "freq_itemsets_2.txt"
-
-# Associations
-associations_filename = created_direct + "associations_10.txt"
 
 
 # Creates ontology and writes it to an output file, as well as calculates information content.
@@ -96,11 +93,41 @@ def create_onto_ann():
 
     # Join all term to gene and make them gene to term.
     all_gt = join_gt(hp_tg, bp_tg, mf_tg)
+    hp_gt = swap_key_value(hp_tg)
+    bp_gt = swap_key_value(bp_tg)
+    mf_gt = swap_key_value(mf_tg)
 
     output_file = open(gene_term_filename, "w")
     for gene in all_gt:
         output_file.write(gene)
         for term in all_gt[gene]:
+            output_file.write("\t")
+            output_file.write(term)
+        output_file.write("\n")
+    output_file.close()
+
+    output_file = open(gene_term_bp_filename, "w")
+    for gene in bp_gt:
+        output_file.write(gene)
+        for term in bp_gt[gene]:
+            output_file.write("\t")
+            output_file.write(term)
+        output_file.write("\n")
+    output_file.close()
+
+    output_file = open(gene_term_mf_filename, "w")
+    for gene in mf_gt:
+        output_file.write(gene)
+        for term in mf_gt[gene]:
+            output_file.write("\t")
+            output_file.write(term)
+        output_file.write("\n")
+    output_file.close()
+
+    output_file = open(gene_term_hp_filename, "w")
+    for gene in hp_gt:
+        output_file.write(gene)
+        for term in hp_gt[gene]:
             output_file.write("\t")
             output_file.write(term)
         output_file.write("\n")
@@ -154,7 +181,7 @@ def create_onto_ann():
     for term in mf_spec:
         all_spec[term] = mf_spec[term]
 
-    return all_gt, all_spec, all_ic
+    return all_gt, all_spec, all_ic, bp_gt, mf_gt, hp_gt
 
 
 def read_onto_ann():
@@ -167,6 +194,39 @@ def read_onto_ann():
         gt[cols[0]] = set()
         for i in range(1, len(cols)):
             gt[cols[0]].add(cols[i])
+    file.close()
+
+    file = open(gene_term_bp_filename, "r")
+    bp_gt = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        bp_gt[cols[0]] = set()
+        for i in range(1, len(cols)):
+            bp_gt[cols[0]].add(cols[i])
+    file.close()
+
+    file = open(gene_term_mf_filename, "r")
+    mf_gt = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        mf_gt[cols[0]] = set()
+        for i in range(1, len(cols)):
+            mf_gt[cols[0]].add(cols[i])
+    file.close()
+
+    file = open(gene_term_hp_filename, "r")
+    hp_gt = {}
+    for line in file:
+        cols = line.split("\t")
+        cols[len(cols) - 1] = cols[len(cols) - 1][0:-1]
+
+        hp_gt[cols[0]] = set()
+        for i in range(1, len(cols)):
+            hp_gt[cols[0]].add(cols[i])
     file.close()
 
     # Read Specificity Files
@@ -241,19 +301,38 @@ def read_onto_ann():
     for term in mf_spec:
         all_spec[term] = mf_spec[term]
 
-    return gt, all_spec, all_ic
+    return gt, all_spec, all_ic, bp_gt, mf_gt, hp_gt
 
 
 # Create frequent itemsets.
-def create_freq_itemsets(filename, all_gt, min_support, min_weighted_support,
+def create_freq_itemsets(filename, possible_left, all_gt, min_support, min_weighted_support,
                          min_information_content, all_spec, all_ic):
     all_terms = set()
     for gene in all_gt:
         for term in all_gt[gene]:
             all_terms.add(term)
 
+    print("ALL GT: ", end="")
+    print(all_gt)
+
     freq_itemsets = apriori(all_gt, all_terms, min_support, min_weighted_support,
                             min_information_content, all_spec, all_ic)
+
+    all_itemsets = []
+    for size_freq in freq_itemsets:
+        for itemset in freq_itemsets[size_freq]:
+            all_itemsets.append(itemset)
+
+    freq_itemsets = all_itemsets
+
+    for itemset in freq_itemsets:
+        found = False
+        for item in range(0, len(itemset)):
+            if itemset[item] in possible_left:
+                found = True
+
+        if not found:
+            freq_itemsets.remove(itemset)
 
     file = open(filename, "w")
     file.write("Min Support - "+str(min_support)+"\n")
@@ -291,8 +370,10 @@ def read_freq_itemsets(filename):
     return freq_itemsets
 
 
-def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage, filename, all_spec):
-    final_associations = create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all_spec)
+def create_new_associations(left_terms, right_terms, all_gt, freq_itemsets, min_confidence, min_coverage,
+                            filename, all_spec):
+    final_associations = create_associations(left_terms, right_terms, all_gt, freq_itemsets, min_confidence,
+                                             min_coverage, all_spec)
     file = open(filename, "w")
 
     file.write("Min Coverage - " + str(min_coverage) + "\n")
@@ -309,71 +390,72 @@ def create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
     return final_associations
 
 
-def read_associations(filename):
-    final_associations = []
-    file = open(filename, "r")
+def general_main(freq_file_ext, association_file_ext, recreate_onto_ann, recreate_freq_itemsets, tree,
+                 min_support, min_weighted_support, min_confidence, min_information_content, min_coverage):
 
-    count = 2
-    for line in file:
-        if count > 0:
-            count -= 1
-        else:
-            association = line.split("\t")
-            association[len(association) - 1] = association[len(association) - 1][0:-1]
+    freq_itemsets_filename = created_direct + "freq_itemsets_" + str(freq_file_ext) + ".txt"
+    associations_filename = created_direct + "associations_" + str(association_file_ext) + ".txt"
+    information_filename = "info_on_files.txt"
 
-            final_association = set()
-            for assoc in association:
-                final_association.add(assoc)
-            final_associations.append(final_association)
-    file.close()
+    info_file = open(information_filename, "w")
 
-    return final_associations
+    print("Frequent itemsets filename: "+freq_itemsets_filename)
+    print("Associations filename: "+associations_filename)
+    print("Tree: "+tree)
+    print("Minimum support: "+min_support)
+    print("Minimum weighted support: "+min_weighted_support)
+    print("Minimum confidence: "+min_confidence)
+    print("Minimum information content: "+min_information_content)
+    print("Minimum coverage: "+min_coverage)
 
-
-if len(sys.argv) == 9:
-    print("Correct number of variables.")
-
-    recreate_onto_ann = sys.argv[1]
-    recreate_freq_itemsets = sys.argv[2]
-    recreate_associations = sys.argv[3]
-    min_support = float(sys.argv[4])
-    min_weighted_support = float(sys.argv[5])
-    min_confidence = float(sys.argv[6])
-    min_information_content = float(sys.argv[7])
-    min_coverage = float(sys.argv[8])
-
-    print("Min_Support: "+str(min_support))
-    print("Min_Weighted_Support: "+str(min_weighted_support))
-    print("Min_Confidence: "+str(min_confidence))
-    print("Min_Info_Content: "+str(min_information_content))
-    print("Min_Coverage: "+str(min_coverage))
-
-    # freq_itemsets_filename += str(ceil(min_support*100)) + "_" + str(ceil(min_weighted_support*100)) + "_" + \
-    #                           str(ceil(min_information_content*100)) + ".txt"
-    # associations_filename += str(ceil(min_confidence*100)) + "_" + str(ceil(min_coverage*100)) + ".txt"
+    info_file.write("Frequent itemsets filename: " + freq_itemsets_filename + "\n")
+    info_file.write("Associations filename: " + associations_filename + "\n")
+    info_file.write("Tree: " + tree + "\n")
+    info_file.write("Minimum support: " + min_support + "\n")
+    info_file.write("Minimum weighted support: " + min_weighted_support + "\n")
+    info_file.write("Minimum confidence: " + min_confidence + "\n")
+    info_file.write("Minimum information content: " + min_information_content + "\n")
+    info_file.write("Minimum coverage: " + min_coverage + "\n")
+    info_file.write("\n\n")
 
     if recreate_onto_ann == "true":
-        all_gt, all_spec, all_ic = create_onto_ann()
+        all_gt, all_spec, all_ic, bp_gt, mf_gt, hp_gt = create_onto_ann()
     else:
-        all_gt, all_spec, all_ic = read_onto_ann()
+        all_gt, all_spec, all_ic, bp_gt, mf_gt, hp_gt = read_onto_ann()
+
+    possible_left = set()
+    possible_right = set()
+    if tree == 'bp':
+        for gene in bp_gt:
+            possible_left = bp_gt[gene].union(possible_left)
+        for gene in hp_gt:
+            possible_right = hp_gt[gene].union(possible_right)
+    elif tree == 'mf':
+        for gene in mf_gt:
+            possible_left = mf_gt[gene].union(possible_left)
+        for gene in hp_gt:
+            possible_right = hp_gt[gene].union(possible_right)
+    elif tree == 'hp':
+        for gene in hp_gt:
+            possible_left = hp_gt[gene].union(possible_left)
+        possible_right = possible_left
+    else:
+        for gene in all_gt:
+            possible_left = all_gt[gene].union(possible_left)
+        possible_right = possible_left
 
     if recreate_freq_itemsets == "true":
-        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, all_gt, min_support, min_weighted_support,
-                                             min_information_content, all_spec, all_ic)
+        if tree == 'bp':
+            all_gt = join_two(bp_gt, hp_gt)
+        elif tree == 'mf':
+            all_gt = join_two(mf_gt, hp_gt)
+        elif tree == 'hp':
+            all_gt = hp_gt
+
+        freq_itemsets = create_freq_itemsets(freq_itemsets_filename, possible_left, all_gt,
+                                             min_support, min_weighted_support, min_information_content,
+                                             all_spec, all_ic)
     else:
         freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
 
-    min_coverage_count = ceil(min_coverage * len(freq_itemsets))
-    min_confidence_count = ceil(min_confidence * len(freq_itemsets))
-
-    if recreate_associations == "true":
-        final_associations = create_new_associations(all_gt, freq_itemsets, min_confidence, min_coverage,
-                                                     associations_filename, all_spec)
-    else:
-        final_associations = read_associations(associations_filename)
-
     print("Done")
-
-else:
-    print("Not the correct number of variables: (rewrite_onto_ann, rewrite_freq_itemsets, rewrite_associations, "
-          "min_support, min_weighted_support, min_confidence, min_information_content, min_coverage)")

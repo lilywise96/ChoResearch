@@ -196,7 +196,7 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
     # frequent itemsets of greater size
     itemset_size += 1
 
-    while frequent_itemsets[itemset_size - 1] and itemset_size <= 2:
+    while frequent_itemsets[itemset_size - 1]:
         frequent_itemsets[itemset_size] = list()
         candidate_itemsets = generate_candidate_itemsets(frequent_itemsets, itemset_size)
         pruned_itemset = set()
@@ -214,54 +214,14 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
     return frequent_itemsets
 
 
-# This function writes all frequent itemsets along with their support to the output file with the given filename
-# param filename: The name for the output file
-# param frequent_itemsets_table: The dictionary which contains all frequent itemsets
-# param transactions: The transactions from which the frequent itemsets are found
-# return: void
-def output_to_file(filename, frequent_itemsets_table, transactions):
-    file = open(filename, 'w')
-    # Iterate over the list of frequent itemsets of different size
-    # and write them to the file with the given filename along their support
-    # Follow this format:
-    # {YIL035c, YOR039w} 3.70% support
-    # {YDL134c, YDL188c} 3.70% support
-    # {YIL035c, YOR061w, YGL019w} 3.70% support
-
-    size = 0
-    for group in frequent_itemsets_table:
-        for item in frequent_itemsets_table[group]:
-            if size is not 0 and size is not len(frequent_itemsets_table) and size is not 1:
-                file.write("{")
-                first = True
-                for i in sorted(item):
-                    if first:
-                        file.write(str(i))
-                        first = False
-                    else:
-                        file.write(", ")
-                        file.write(str(i))
-                file.write("} ")
-                support_print = support(transactions, item)
-                support_print /= len(transactions)
-                support_print *= 100
-                percentage = "{:.2f}".format(support_print)
-                file.write(percentage)
-                file.write("% support\n")
-
-        size += 1
-
-    file.close()
-
-
 # Calls other methods. The main apriori algorithm.
 #
 # param: gene_terms - dictionary; key: gene, value: set of terms
 # param: gene_set - the set of all distinct genes
 # param: min_support - the minimum support
 # return: frequent_itemset_table[2] - the frequent itemsets of size 2
-def apriori(gene_terms, gene_set, min_support, min_weighted_support, min_information_content, all_spec, all_ic):
+def apriori(gene_terms, gene_set, min_support, min_weighted_support, min_information_content,
+            all_spec, all_ic):
     frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support, min_weighted_support,
                                                             min_information_content, all_spec, all_ic)
-    # output_to_file(output_filename, frequent_itemset_table, gene_terms)
-    return frequent_itemset_table[2]
+    return frequent_itemset_table

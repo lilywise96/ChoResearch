@@ -20,7 +20,9 @@ def coverage(left_val, all_itemsets, all_spec):
         if left_val in all_itemsets[itemset]:
             count += 1
 
-    cover = count * all_spec[left_val] * 10
+    cover = 0
+    if left_val in all_spec:
+        cover = count * all_spec[left_val] * 10
 
     return cover
 
@@ -51,7 +53,9 @@ def confidence(all_gt, association, all_spec):
         if found_big:
             confidence_count += 1
 
-    conf = confidence_count * all_spec[association[1]] * 100
+    conf = 0
+    if 1 in association and association[1] in all_spec:
+        conf = confidence_count * all_spec[association[1]] * 100
 
     return conf
 
@@ -66,14 +70,16 @@ def confidence(all_gt, association, all_spec):
 # param: min_coverage - the minimum coverage, as a decimal
 #
 # returns: the list of final associations that meets the requirements
-def create_associations(all_gt, freq_itemsets, min_confidence, min_coverage, all_spec):
+def create_associations(left_terms, right_terms, all_gt, freq_itemsets, min_confidence, min_coverage, all_spec):
     final_associations = []
     associations = all_associations(freq_itemsets)
 
     for associate in associations:
         cur_confidence = confidence(all_gt, associate, all_spec)
         cur_coverage = coverage(associate[0], all_gt, all_spec)
-        if cur_confidence >= min_confidence and cur_coverage >= min_coverage:
+
+        if cur_confidence >= min_confidence and cur_coverage >= min_coverage \
+                and associate[0] in left_terms and associate[1] in right_terms:
             final_associations.append(associate)
 
     return final_associations

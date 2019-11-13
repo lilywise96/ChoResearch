@@ -169,6 +169,24 @@ def terms_to_all_parents(tree_child_parent):
     return new_tree_child_parent
 
 
+# Joins to trees together into one tree.
+#
+# param: tree - dictionary; key: gene, value: set of terms (either bp or mf)
+# param: hp_tree - dictionary; key: gene, value: set of terms in hp
+# returns: dictionary; key: gene, value: set of terms
+def join_two(tree, hp_tree):
+    combined_tree = {}
+
+    for gene in tree:
+        combined_tree[gene] = tree[gene]
+
+    for gene in hp_tree:
+        if gene in combined_tree:
+            combined_tree[gene] = tree[gene].union(hp_tree[gene])
+
+    return combined_tree
+
+
 # Adds all parents transitively to the current node.
 #
 # param: node - the current node in the tree
