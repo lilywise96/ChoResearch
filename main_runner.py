@@ -13,9 +13,9 @@ coverage = 0.1
 count_freq_file = 1
 count_assoc_file = 1
 
+first = True
 for tree in range(0, len(trees)):
     for sup in range(0, len(support)):
-        first = True
         for conf in range(0, len(confidence)):
             if first:
                 general_main(count_freq_file, count_assoc_file, "true", "true", trees[tree], support[sup],
