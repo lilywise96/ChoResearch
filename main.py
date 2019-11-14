@@ -397,7 +397,7 @@ def general_main(freq_file_ext, association_file_ext, recreate_onto_ann, recreat
     associations_filename = created_direct + "associations_" + str(association_file_ext) + ".txt"
     information_filename = "info_on_files.txt"
 
-    info_file = open(information_filename, "w")
+    info_file = open(information_filename, "a+")
 
     print("Frequent itemsets filename: "+str(freq_itemsets_filename))
     print("Associations filename: "+str(associations_filename))
@@ -417,6 +417,8 @@ def general_main(freq_file_ext, association_file_ext, recreate_onto_ann, recreat
     info_file.write("Minimum information content: " + str(min_information_content) + "\n")
     info_file.write("Minimum coverage: " + str(min_coverage) + "\n")
     info_file.write("\n\n")
+
+    info_file.close()
 
     if recreate_onto_ann == "true":
         all_gt, all_spec, all_ic, bp_gt, mf_gt, hp_gt = create_onto_ann()
@@ -457,5 +459,8 @@ def general_main(freq_file_ext, association_file_ext, recreate_onto_ann, recreat
                                              all_spec, all_ic)
     else:
         freq_itemsets = read_freq_itemsets(freq_itemsets_filename)
+
+    create_new_associations(possible_left, possible_right, all_gt, freq_itemsets, min_confidence,
+                            min_coverage, associations_filename, all_spec)
 
     print("Done")
