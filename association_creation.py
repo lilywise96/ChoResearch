@@ -4,7 +4,6 @@ Author: Lily Wise
 
 This creates association and has other functions that are used to calculate the associations.
 """
-from math import ceil
 
 
 # This function calculates the coverage given an association and all the itemsets.

@@ -1,7 +1,0 @@
-    Support     Weighted Support    Confidence   Information Content     Coverage
-#1      1%          .5%                 20%             30%                 5%
-#2      1%          .5%                 25%             30%                 5%
-#3      2%           1%                 20%             30%                 5%
-#4      2%           1%                 25%             30%                 5%
-#5      3%         1.5%                 20%             30%                 5%
-#6      3%         1.5%                 25%             30%                 5%

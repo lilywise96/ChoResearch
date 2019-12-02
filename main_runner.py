@@ -6,8 +6,8 @@ from main import general_main
 trees = ['all', 'bp', 'mf', 'hp']
 support = [0.02, 0.015]
 weighted_support = 0.1
-confidence = [0.05, 0.04, 0.03, 0.02, 0.01]
-info_content = .35
+confidence = [0.03, 0.02, 0.01]
+info_content = .3
 coverage = 0.1
 
 count_freq_file = 1
@@ -22,11 +22,7 @@ for tree in range(0, len(trees)):
                              weighted_support, confidence[conf], info_content, coverage)
                 first = False
             else:
-                if count_freq_file == 1:
-                    general_main(count_freq_file, count_assoc_file, "false", "true", trees[tree], support[sup],
-                                 weighted_support, confidence[conf], info_content, coverage)
-                else:
-                    general_main(count_freq_file, count_assoc_file, "false", "false", trees[tree], support[sup],
-                                 weighted_support, confidence[conf], info_content, coverage)
+                general_main(count_freq_file, count_assoc_file, "false", "true", trees[tree], support[sup],
+                             weighted_support, confidence[conf], info_content, coverage)
             count_assoc_file += 1
         count_freq_file += 1
