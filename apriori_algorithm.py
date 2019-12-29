@@ -34,11 +34,19 @@ def weighted_support(transactions, itemset, all_spec):
         if found_big:
             support_count += 1
 
-    support_weight = 2 * all_spec[itemset[0]] * all_spec[itemset[1]] * support_count
-    if (all_spec[itemset[0]] + all_spec[itemset[1]]) != 0:
-        support_weight /= (all_spec[itemset[0]] + all_spec[itemset[1]])
+    if isinstance(itemset, frozenset):
+        itemlist = list(itemset)
+        support_weight = 2 * all_spec[itemlist[0]] * all_spec[itemlist[1]] * support_count
+        if (all_spec[itemlist[0]] + all_spec[itemlist[1]]) != 0:
+            support_weight /= (all_spec[itemlist[0]] + all_spec[itemlist[1]])
+        else:
+            support_weight = 0
     else:
-        support_weight = 0
+        support_weight = 2 * all_spec[itemset[0]] * all_spec[itemset[1]] * support_count
+        if (all_spec[itemset[0]] + all_spec[itemset[1]]) != 0:
+            support_weight /= (all_spec[itemset[0]] + all_spec[itemset[1]])
+        else:
+            support_weight = 0
 
     return support_weight
 
@@ -78,41 +86,75 @@ def support(transactions, itemset):
 # return: All valid joined itemsets
 def generate_selectively_joined_itemsets(frequent_itemsets, itemset_size):
 
+    print("Generating selectively joined itemsets of size " + str(itemset_size) + "...")
     # Record seen_itemsets to prevent duplicates
     seen_itemsets = set()
     joined_itemsets = set()
 
+    # Another implementation...
+    # a list of itemsets, eg: [{A, B}, {A, C}, {A, E}, {B, C}, {B, E}, {C, E}]
+    fi_list = frequent_itemsets[itemset_size - 1]
+    print("size of fi_list: " + str(len(fi_list)))
+    # For all pairs of itemsets...
+    for i in range(len(fi_list) - 1):
+        for j in range(i, len(fi_list)):
+            #print(fi_list[i])
+            #print(fi_list[j])
+            shared_terms = set(fi_list[i]).intersection(set(fi_list[j]))
+            #print("shared terms: " + str(shared_terms))
+            #print(len(shared_terms))
+            # If they share a subset of (size - 2), add the union of the pair to the list.
+            if len(shared_terms) >= itemset_size - 2 and len(shared_terms) is not itemset_size - 1:
+                #print("itemset 1:")
+                #print(fi_list[i])
+                #print("itemset 2:")
+                #print(fi_list[j])
+                joined_set = set(fi_list[i]).union(set(fi_list[j]))
+                has_hpo_term = False
+
+                for term in joined_set:
+                    if "HP:" in term:
+                        has_hpo_term = True
+                if joined_set not in seen_itemsets and has_hpo_term:
+                    joined_itemsets.add(frozenset(joined_set))
+                    seen_itemsets.add(frozenset(joined_set))
+
     # Try all combinations of two itemsets from the table of frequent itemsets and join the pair if they share
     # (itemset_size - 2) items
     # Add each joined itemset to the list if it is not present in the list and discard it otherwise
-    for item1 in frequent_itemsets[itemset_size-1]:
-        for item2 in frequent_itemsets[itemset_size-1]:
-
-            # if the item set is size 1, then you don't need to look for the intersection
-            if itemset_size-1 == 1:
-                temp_tuple = (item1, item2)
-                temp_tuple = tuple(sorted(temp_tuple))
-                if item1 is not item2 and temp_tuple not in seen_itemsets:
-                    joined_itemsets.add(temp_tuple)
-                    seen_itemsets.add(temp_tuple)
-
-            # if the item set is greater than 1, then you need to find the intersection
-            else:
-                list_a = set(item1)
-                list_b = set(item2)
-
-                # Get the intersection and the union
-                intersection = list_a.intersection(list_b)
-                union = list_a.union(list_b)
-                length_intersection = len(intersection)
-
-                # Check if the sets have enough in common
-                if length_intersection >= itemset_size-2 and length_intersection is not itemset_size-1:
-                    union = sorted(union)
-                    temp_tuple = tuple(union)
-                    if temp_tuple not in seen_itemsets:
-                        seen_itemsets.add(temp_tuple)
-                        joined_itemsets.add(temp_tuple)
+    # for item1 in frequent_itemsets[itemset_size-1]:
+    #     for item2 in frequent_itemsets[itemset_size-1]:
+    #
+    #         # if the item set is size 1, then you don't need to look for the intersection
+    #         if itemset_size-1 == 1:
+    #             temp_tuple = (item1, item2)
+    #             temp_tuple = tuple(sorted(temp_tuple))
+    #             if item1 is not item2 and temp_tuple not in seen_itemsets:
+    #                 joined_itemsets.add(temp_tuple)
+    #                 seen_itemsets.add(temp_tuple)
+    #
+    #         # if the item set is greater than 1, then you need to find the intersection
+    #         else:
+    #             list_a = set(item1)
+    #             list_b = set(item2)
+    #
+    #             # Get the intersection and the union
+    #             intersection = list_a.intersection(list_b)
+    #             union = list_a.union(list_b)
+    #             length_intersection = len(intersection)
+    #
+    #             # Check if the sets have enough in common
+    #             # TODO Fix bug in this segment.
+    #             if length_intersection >= itemset_size-2 and length_intersection is not itemset_size-1:
+    #                 union = sorted(union)
+    #                 temp_tuple = tuple(union)
+    #                 has_hpo_term = False
+    #                 for term in temp_tuple:
+    #                     if "HP:" in term:
+    #                         has_hpo_term = True
+    #                 if temp_tuple not in seen_itemsets and has_hpo_term:
+    #                     seen_itemsets.add(temp_tuple)
+    #                     joined_itemsets.add(temp_tuple)
 
     joined_itemsets = sorted(joined_itemsets)
     return joined_itemsets
@@ -182,12 +224,14 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
     print(len(items))
     count = 0
     for i in items:
-        print(str(count))
+        #print(str(count))
         count += 1
         list_ver = [i]
         support_check = support(transactions, list_ver)
         if support_check >= min_support and all_ic[i] >= min_information_content:
-            frequent_itemsets[itemset_size].append(i)
+            set_wrapper = set()
+            set_wrapper.add(i)
+            frequent_itemsets[itemset_size].append(set_wrapper)
 
     frequent_itemsets[itemset_size] = sorted(frequent_itemsets[itemset_size])
 
@@ -196,19 +240,30 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
     # frequent itemsets of greater size
     itemset_size += 1
 
-    while frequent_itemsets[itemset_size - 1]:
+    while frequent_itemsets[itemset_size - 1] and itemset_size <= 2:
         frequent_itemsets[itemset_size] = list()
         candidate_itemsets = generate_candidate_itemsets(frequent_itemsets, itemset_size)
+        print("generated candidate itemsets. size = " + str(itemset_size))
         pruned_itemset = set()
 
         # Prune the candidate itemset if its support is less than minimum support
+        print("size of cand. itemsets: " + str(len(candidate_itemsets)))
+        test_count = 0
         for candidate in candidate_itemsets:
+            test_count += 1
+            #print(test_count)
+            #print("candidate info:")
+            #print(candidate)
             weighted_sup = weighted_support(transactions, candidate, all_spec)
+            #print(weighted_sup)
             if weighted_sup >= min_weighted_support:
                 pruned_itemset.add(candidate)
+        print("pruned candidate itemsets for weighted support. size = " + str(itemset_size))
 
+        pruned_itemset = list(pruned_itemset)
         frequent_itemsets[itemset_size] = pruned_itemset
         print("Finished itemsize " + str(itemset_size))
+        print("# of (weighted) frequent itemsets: " + str(len(pruned_itemset)))
         itemset_size += 1
 
     return frequent_itemsets
@@ -222,6 +277,7 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
 # return: frequent_itemset_table[2] - the frequent itemsets of size 2
 def apriori(gene_terms, gene_set, min_support, min_weighted_support, min_information_content,
             all_spec, all_ic):
+
     frequent_itemset_table = generate_all_frequent_itemsets(gene_terms, gene_set, min_support, min_weighted_support,
                                                             min_information_content, all_spec, all_ic)
     return frequent_itemset_table

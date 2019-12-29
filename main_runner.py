@@ -5,7 +5,7 @@ from main import general_main
 
 trees = ['all', 'bp', 'mf', 'hp']
 support = [0.02, 0.015]
-weighted_support = 0.1
+weighted_support = 0.01
 confidence = [0.03, 0.02, 0.01]
 info_content = .3
 coverage = 0.1

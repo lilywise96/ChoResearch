@@ -1,0 +1,2 @@
+Min Coverage - 0.1
+Min Confidence - 0.02

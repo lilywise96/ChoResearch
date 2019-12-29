@@ -1,0 +1,1340 @@
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.1
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_3.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_4.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_5.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_6.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_7.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_8.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_9.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_10.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_11.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_12.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_13.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_14.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_15.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_16.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_17.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_18.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_19.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_20.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_21.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_8.txt
+Associations filename: ./created/associations_22.txt
+Tree: hp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_3.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_4.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_5.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_6.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_7.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_8.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_9.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_10.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_11.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_12.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_13.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_14.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_15.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_16.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_17.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_18.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_19.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_20.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_21.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_8.txt
+Associations filename: ./created/associations_22.txt
+Tree: hp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_8.txt
+Associations filename: ./created/associations_23.txt
+Tree: hp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_8.txt
+Associations filename: ./created/associations_24.txt
+Tree: hp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_3.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_4.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_5.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_6.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_7.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_8.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_9.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_10.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_11.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_12.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_13.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_14.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_15.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_16.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_17.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_18.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_19.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_20.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_3.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_4.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_5.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_6.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_7.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_8.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_3.txt
+Associations filename: ./created/associations_9.txt
+Tree: bp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_10.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_11.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_4.txt
+Associations filename: ./created/associations_12.txt
+Tree: bp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_13.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_14.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_5.txt
+Associations filename: ./created/associations_15.txt
+Tree: mf
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_16.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_17.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_6.txt
+Associations filename: ./created/associations_18.txt
+Tree: mf
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_19.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_20.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_7.txt
+Associations filename: ./created/associations_21.txt
+Tree: hp
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_8.txt
+Associations filename: ./created/associations_22.txt
+Tree: hp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_8.txt
+Associations filename: ./created/associations_23.txt
+Tree: hp
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_3.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_4.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_5.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_1.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_2.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_1.txt
+Associations filename: ./created/associations_3.txt
+Tree: all
+Minimum support: 0.02
+Minimum weighted support: 0.01
+Minimum confidence: 0.01
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_4.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.03
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+
+Frequent itemsets filename: ./created/freq_itemsets_2.txt
+Associations filename: ./created/associations_5.txt
+Tree: all
+Minimum support: 0.015
+Minimum weighted support: 0.01
+Minimum confidence: 0.02
+Minimum information content: 0.3
+Minimum coverage: 0.1
+
+

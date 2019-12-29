@@ -70,6 +70,8 @@ def confidence(all_gt, association, all_spec):
 #
 # returns: the list of final associations that meets the requirements
 def create_associations(left_terms, right_terms, all_gt, freq_itemsets, min_confidence, min_coverage, all_spec):
+    print("Starting association creation for min. coverage = " + str(min_coverage)
+          + " and min. confidence = " + str(min_confidence))
     final_associations = []
     associations = all_associations(freq_itemsets)
 

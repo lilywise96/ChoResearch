@@ -327,8 +327,8 @@ def create_freq_itemsets(filename, possible_left, all_gt, min_support, min_weigh
 
     for itemset in freq_itemsets:
         found = False
-        for item in range(0, len(itemset)):
-            if itemset[item] in possible_left:
+        for item in itemset:
+            if item in possible_left:
                 found = True
 
         if not found:
@@ -339,10 +339,11 @@ def create_freq_itemsets(filename, possible_left, all_gt, min_support, min_weigh
     file.write("Min Information Content - " + str(min_information_content) + "\n")
     file.write("Min Weighted Support - " + str(min_weighted_support) + "\n")
     for itemset in freq_itemsets:
-        for item in range(0, len(itemset)):
-            if item != 0:
+        item_list = list(itemset)
+        for i in range(0, len(item_list)):
+            if i != 0:
                 file.write("\t")
-            file.write(itemset[item])
+            file.write(item_list[i])
         file.write("\n")
     file.close()
 
