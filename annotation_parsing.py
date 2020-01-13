@@ -1,6 +1,6 @@
 """
 File: annotation_parsing.py
-Author: Lily Wise
+Author: Lily Wise, Joseph Chang
 
 This file parses annotation files for hpo and for go.
 """
@@ -18,7 +18,7 @@ def hpo_parsing_ann(filename):
 
     for line in file:
         if not line.startswith('#'):
-            columns = line.split('\t')
+            columns = line.strip().split('\t')
             gene_id = columns[0]
             gene_symbol = columns[1]
             term_id = columns[3][0:10]
@@ -52,9 +52,9 @@ def parsing_ann(filename):
 
     for line in file:
         if not line.startswith('!'):
-            cols = line.split('\t')
+            cols = line.strip().split('\t')
 
-            if 'NOT' in cols[3]:
+            if 'NOT' not in cols[3]:
                 gene = cols[2]
                 term = cols[4]
                 namespace = cols[8]

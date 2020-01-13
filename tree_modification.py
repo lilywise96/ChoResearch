@@ -1,6 +1,6 @@
 """
 Name: tree_modification.py
-Author: Lily Wise
+Author: Lily Wise, Joseph Chang
 
 All functions that modify or determine information about the annotation or ontology trees.
 """
@@ -93,7 +93,7 @@ def gene_to_all_parents(tree_child_parent, gene_to_terms):
     all_nodes = set()
     terms_to_genes = swap_key_value(gene_to_terms)
     leaf_nodes = set()
-    to_check = set()
+    to_check = []
 
     for node in set(tree_parent_child.keys()):
         all_nodes.add(node)
@@ -106,13 +106,16 @@ def gene_to_all_parents(tree_child_parent, gene_to_terms):
 
     for node in leaf_nodes:
         for parent in tree_child_parent[node]:
-            to_check.add(parent)
+            if parent not in to_check:
+                to_check.append(parent)
 
+    # BFS-like
     while len(to_check) != 0:
-        checking = to_check.pop()
+        checking = to_check.pop(0)
         if checking in tree_child_parent:
             for parent in tree_child_parent[checking]:
-                to_check.add(parent)
+                if parent not in to_check:
+                    to_check.append(parent)
             terms_to_genes = gene_to_parent(checking, tree_parent_child, terms_to_genes)
 
     return terms_to_genes
@@ -145,6 +148,8 @@ def gene_to_parent(node, tree, terms_to_genes):
 # returns: dictionary; key: term, value: set of transitive parents
 def terms_to_all_parents(tree_child_parent):
     new_tree_child_parent = tree_child_parent
+    # If a term in an ontology has parents in another ontology, the swapped tree will contain keys of another ontology.
+    # Note to self: MAKE SURE to account for this!
     tree_parent_child = swap_key_value(new_tree_child_parent)
 
     # Find the root
@@ -153,10 +158,12 @@ def terms_to_all_parents(tree_child_parent):
         if len(new_tree_child_parent[node]) == 0 and node in tree_parent_child:
             root = node
 
+    # TODO: When checking an ontology with input terms, make sure the terms exist in that ontology.
     # Check each of the nodes starting at the root and moving down through the tree.
     to_check = []
     for child in tree_parent_child[root]:
-        to_check.append(child)
+        if child in tree_child_parent:
+            to_check.append(child)
 
     while len(to_check) != 0:
         cur_check = to_check.pop()

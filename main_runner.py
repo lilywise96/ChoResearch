@@ -1,3 +1,5 @@
+# Author: Lily Wise, Joseph Chang
+
 from main import general_main
 
 # def general_main(freq_file_ext, association_file_ext, recreate_onto_ann, recreate_freq_itemsets, tree,

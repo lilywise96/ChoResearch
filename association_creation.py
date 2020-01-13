@@ -1,6 +1,6 @@
 """
 Filename: association_creation.py
-Author: Lily Wise
+Author: Lily Wise, Joseph Chang
 
 This creates association and has other functions that are used to calculate the associations.
 """
@@ -33,6 +33,7 @@ def coverage(left_val, all_itemsets, all_spec):
 #
 # returns: the confidence count as a decimal
 def confidence(all_gt, association, all_spec):
+    # TODO: Find and fix what's causing confidence to be zero for all association rules.
     confidence_count = 0
 
     # Calculate confidence of an association by iterating over the frequent itemsets
@@ -72,6 +73,8 @@ def confidence(all_gt, association, all_spec):
 def create_associations(left_terms, right_terms, all_gt, freq_itemsets, min_confidence, min_coverage, all_spec):
     print("Starting association creation for min. coverage = " + str(min_coverage)
           + " and min. confidence = " + str(min_confidence))
+    print("right terms:")
+    print(right_terms)
     final_associations = []
     associations = all_associations(freq_itemsets)
 

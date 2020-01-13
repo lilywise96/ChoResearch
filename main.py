@@ -1,6 +1,7 @@
 """
 Filename: main.py
-Author: Lily Wise
+Author: Lily Wise, Joseph Chang
+Copyright © 2019
 
 Calls other functions to find associations between genes and terms for diseases. Should calculate associations with
 support 4% - 10%, coverage 4% - 10%, and confidence 20% - 50%.
@@ -308,12 +309,19 @@ def read_onto_ann():
 def create_freq_itemsets(filename, possible_left, all_gt, min_support, min_weighted_support,
                          min_information_content, all_spec, all_ic):
     all_terms = set()
+
     for gene in all_gt:
         for term in all_gt[gene]:
             all_terms.add(term)
 
-    print("ALL GT: ", end="")
-    print(all_gt)
+    go_count = 0
+    for term in all_terms:
+        if "GO" in term:
+            go_count += 1
+    print("Before creating frequent itemsets: # of GO terms in all_terms: " + str(go_count))
+
+    #print("ALL GT: ", end="")
+    #print(all_gt)
 
     freq_itemsets = apriori(all_gt, all_terms, min_support, min_weighted_support,
                             min_information_content, all_spec, all_ic)
@@ -380,6 +388,7 @@ def create_new_associations(left_terms, right_terms, all_gt, freq_itemsets, min_
     file.write("Min Coverage - " + str(min_coverage) + "\n")
     file.write("Min Confidence - " + str(min_confidence) + "\n")
 
+    print("# of associations: " + str(len(final_associations)))
     for association in final_associations:
         for associate in range(0, len(association)):
             if associate != 0:

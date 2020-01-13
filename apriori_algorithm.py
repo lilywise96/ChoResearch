@@ -1,6 +1,6 @@
 """
 Filename: apriori_algorithm.py
-Author: Lily Wise
+Authors: Joseph Chang, Lily Wise
 
 Calculates the frequent itemsets.
 """
@@ -96,6 +96,7 @@ def generate_selectively_joined_itemsets(frequent_itemsets, itemset_size):
     fi_list = frequent_itemsets[itemset_size - 1]
     print("size of fi_list: " + str(len(fi_list)))
     # For all pairs of itemsets...
+    has_both_ontologies_count = 0
     for i in range(len(fi_list) - 1):
         for j in range(i, len(fi_list)):
             #print(fi_list[i])
@@ -111,13 +112,20 @@ def generate_selectively_joined_itemsets(frequent_itemsets, itemset_size):
                 #print(fi_list[j])
                 joined_set = set(fi_list[i]).union(set(fi_list[j]))
                 has_hpo_term = False
-
+                has_go_term = False
                 for term in joined_set:
                     if "HP:" in term:
                         has_hpo_term = True
+                    if "GO:" in term:
+                        has_go_term = True
                 if joined_set not in seen_itemsets and has_hpo_term:
+                    if has_go_term:
+                        has_both_ontologies_count += 1
                     joined_itemsets.add(frozenset(joined_set))
                     seen_itemsets.add(frozenset(joined_set))
+
+    print("For size " + str(itemset_size) + ":")
+    print("From selective joining: # of itemsets with both GO and HPO terms: " + str(has_both_ontologies_count))
 
     # Try all combinations of two itemsets from the table of frequent itemsets and join the pair if they share
     # (itemset_size - 2) items
@@ -144,7 +152,6 @@ def generate_selectively_joined_itemsets(frequent_itemsets, itemset_size):
     #             length_intersection = len(intersection)
     #
     #             # Check if the sets have enough in common
-    #             # TODO Fix bug in this segment.
     #             if length_intersection >= itemset_size-2 and length_intersection is not itemset_size-1:
     #                 union = sorted(union)
     #                 temp_tuple = tuple(union)
@@ -185,6 +192,21 @@ def apply_apriori_pruning(selected_itemsets, frequent_itemsets, itemset_size):
         for item in selected_itemsets:
             apriori_pruned_itemsets.add(item)
 
+    # TODO: Remove this debug/print code.
+    has_both_ontologies_count = 0
+    for itemset in apriori_pruned_itemsets:
+        has_hpo_term = False
+        has_go_term = False
+        for term in itemset:
+            if "HP" in term:
+                has_hpo_term = True
+            if "GO" in term:
+                has_go_term = True
+        if has_hpo_term and has_go_term:
+            has_both_ontologies_count += 1
+
+    print("From apriori pruning: # of itemsets with both GO and HPO terms: " + str(has_both_ontologies_count))
+
     apriori_pruned_itemsets = sorted(apriori_pruned_itemsets)
     return apriori_pruned_itemsets
 
@@ -220,31 +242,39 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
     itemset_size += 1
     frequent_itemsets[itemset_size] = list()
 
-    # Find all frequent itemsets of size-1 and add them to the list
-    print(len(items))
+    # Find all frequent itemsets of size 1 and add them to the list
+    print("how many items in total: " + str(len(items)))
     count = 0
-    for i in items:
+    test_file = open("test_GO_support.txt", 'w')
+    test_file.write("MINIMUM SUPPORT: " + str(min_support) + "\n")
+    for item in items:
         #print(str(count))
         count += 1
-        list_ver = [i]
+        list_ver = [item]
         support_check = support(transactions, list_ver)
-        if support_check >= min_support and all_ic[i] >= min_information_content:
+        # TODO: Check accuracy of support checking
+        if "GO" in item:
+            test_file.write(item + "\t" + str(support_check))
+            test_file.write("\n")
+        if support_check >= min_support and all_ic[item] >= min_information_content:
             set_wrapper = set()
-            set_wrapper.add(i)
+            set_wrapper.add(item)
             frequent_itemsets[itemset_size].append(set_wrapper)
 
     frequent_itemsets[itemset_size] = sorted(frequent_itemsets[itemset_size])
 
     print("Finished itemsize "+str(itemset_size))
+    print(frequent_itemsets[itemset_size])
 
     # frequent itemsets of greater size
     itemset_size += 1
 
+    # For this study, limit itemset size to 2. One of the items must be an HPO term.
     while frequent_itemsets[itemset_size - 1] and itemset_size <= 2:
         frequent_itemsets[itemset_size] = list()
         candidate_itemsets = generate_candidate_itemsets(frequent_itemsets, itemset_size)
         print("generated candidate itemsets. size = " + str(itemset_size))
-        pruned_itemset = set()
+        pruned_itemsets = set()
 
         # Prune the candidate itemset if its support is less than minimum support
         print("size of cand. itemsets: " + str(len(candidate_itemsets)))
@@ -257,13 +287,27 @@ def generate_all_frequent_itemsets(transactions, items, min_support, min_weighte
             weighted_sup = weighted_support(transactions, candidate, all_spec)
             #print(weighted_sup)
             if weighted_sup >= min_weighted_support:
-                pruned_itemset.add(candidate)
-        print("pruned candidate itemsets for weighted support. size = " + str(itemset_size))
+                pruned_itemsets.add(candidate)
 
-        pruned_itemset = list(pruned_itemset)
-        frequent_itemsets[itemset_size] = pruned_itemset
+        print("pruned candidate itemsets for weighted support. size = " + str(itemset_size))
+        # TODO: debug/print code.
+        has_both_ontologies_count = 0
+        for itemset in pruned_itemsets:
+            has_hpo_term = False
+            has_go_term = False
+            for term in itemset:
+                if "HP" in term:
+                    has_hpo_term = True
+                if "GO" in term:
+                    has_go_term = True
+            if has_hpo_term and has_go_term:
+                has_both_ontologies_count += 1
+        print("From final support pruning: # of itemsets with both GO and HPO terms: " + str(has_both_ontologies_count))
+
+        pruned_itemsets = list(pruned_itemsets)
+        frequent_itemsets[itemset_size] = pruned_itemsets
         print("Finished itemsize " + str(itemset_size))
-        print("# of (weighted) frequent itemsets: " + str(len(pruned_itemset)))
+        print("# of (weighted) frequent itemsets: " + str(len(pruned_itemsets)))
         itemset_size += 1
 
     return frequent_itemsets
